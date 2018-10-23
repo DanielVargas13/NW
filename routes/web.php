@@ -1,0 +1,40 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/anunciarProduto/{id}', 'ProdutoController@anunciar')->name('anunciar');
+
+Route::get('/suspenderAnuncio/{id}', 'ProdutoController@suspender')->name('suspender');
+
+Route::get('/', 'PagesController@index')->name('index');
+
+Route::post('/login', 'GamerController@login')->name('login');
+
+Route::get('/cadastroProduto/{id}', 'ClienteController@acessoCP');
+
+Route::get('/logout', 'GamerController@logout')->name('logout');
+
+Route::get('/meusProdutos/{id}', 'ClienteController@acessoMP');
+
+Route::get('/atualizarCadastro/{idC}', 'ClienteController@edit');
+
+//Route::get('/atualizarGamer/{g}', 'GamerController@up');
+
+Route::get('/cadastroCompleto/{id}', 'ClienteController@create');
+
+Route::get('/home','ProdutoController@ecommerce')->name('home');
+
+Route::resource('gamer','GamerController');
+
+Route::resource('produto','ProdutoController');
+
+Route::resource('cliente','ClienteController');
