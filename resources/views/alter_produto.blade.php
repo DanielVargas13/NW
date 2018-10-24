@@ -1,8 +1,4 @@
-<?php 
 
-    require app_path() . '\..\resources\views\navbar.blade.php';
-
-?>
 
 <!DOCTYPE html>
 <html>
@@ -101,14 +97,26 @@
         
         
     </style>
+    
+    <script>
+        function tNegocio(){
+            var negocio = document.getElementById('idnegocio');
+            var preco = document.getElementById('preco');
+            var div = document.getElementById('divprec');
+            if(negocio.value == 'Troca'){
+                div.hidden = true;
+                preco.value = null;
+                preco.disabled = true;
+            }else{
+                div.hidden = false;
+                preco.disabled = false;
+            }
+        }
+    </script>
 
 </head>
-<body>
-
-    <!-- Nav-Bar -->
-    <?php 
-        require app_path() . '\..\resources\views\navbar.blade.php';
-    ?>
+<body onload="tNegocio()">
+    @include('nav.navbar')
 
     @if (session('message'))
     <div id="modal1" class="modal">
@@ -122,55 +130,7 @@
     @endif
 
 <!-- Side Nav -->
-    <ul id="slide-out" class="sidenav">
-        <li>
-            <div class="user-view">
-                <div class="background">
-                    <img src="{{ URL::asset('Imagens/brackground2.jpg')}}">
-                </div>
-                @if (Auth::user()->cliente)
-                <a href="#user"><img class="circle" src="{{ URL::asset('Imagens/'.Auth::user()->cliente->foto)}}"></a>
-                @else
-                <a href="#user"><img class="circle" src="{{ URL::asset('Imagens/homem_perfil.jpg')}}"></a>
-                @endif
-                <a href="#name"><span class="white-text name"> {{ Auth::user()->nome }} </span></a>
-            </div>
-        </li>
-        <li class="no-padding">
-            <ul class="collapsible collapsible-accordion">
-                <li><a class="waves-effect collapsible-header" href="#"> Gerênciar Perfil <i class="material-icons"> arrow_drop_down</i></a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li><a class="waves-effect" href="cadastroCompleto/{{ Auth::user()->idGamer }}"> Cadastro Completo </a></li>
-                            <li><a class="waves-effect" href="atualizarCadastro/{{ Auth::user()->idGamer }}"> Atualizar Cadastro </a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </li>
-
-        <li>
-            <div class="divider"></div>
-        </li>
-
-        <li class="no-padding">
-            <ul class="collapsible collapsible-accordion">
-                <li><a class="waves-effect collapsible-header" href="#"> Gerênciar Produtos <i class="material-icons"> arrow_drop_down</i></a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li><a class="waves-effect" href="cadastroProduto/{{ Auth::user()->idGamer }}"> Cadastrar Produto </a></li>
-                            <li><a class="waves-effect" href="meusProdutos/{{ Auth::user()->idGamer }}"> Meus Produtos </a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </li>
-
-        <li>
-            <div class="divider"></div>
-        </li>
-
-    </ul>
+     @include('nav.sidenav')
 
     <br><br><br>
     
@@ -186,6 +146,9 @@
                     <br><br>
                     <p class="texto texto-usuario-titulo ralewayFont"><i class="material-icons prefix"> storage </i> Categoria </p><br>
                     <p class="texto texto-usuario-resposta ralewayFont"> {{$produto->tipo->nome}} </p>
+                    <br><br>
+                    <p class="texto texto-usuario-titulo ralewayFont"><i class="material-icons prefix"> storage </i> Tipo do Produto </p><br>
+                    <p class="texto texto-usuario-resposta ralewayFont"> {{$produto->categoria}} </p>
                     <br><br>
                     <p class="texto texto-usuario-titulo ralewayFont"><i class="material-icons prefix"> shop </i> Método de Negócio </p><br>
                     <p class="texto texto-usuario-resposta ralewayFont"> {{$produto->tiponegocio}} </p>
@@ -223,22 +186,28 @@
                             </div>                      
                         <div class="input-field col s10 offset-s1 m10 offset-m1 l10 offset-l1">
                             <i class="material-icons prefix"> storage </i>
-                            <select name="idTipoProduto">
+                            <select name="idTipoProduto" id="cTipo">
                                   <option value="{{$produto->tipo->idTipo}}" selected> {{$produto->tipo->nome}} </option>
                                     @foreach($tipoproduto as $tipo)
                                   <option value="{{$tipo->idTipo}}">{{$tipo->nome}}</option> 
                                      @endforeach
                                 </select>
                         </div>
+                        <div id="divcat" class="input-field col s10 offset-s1 m10 offset-m1 l10 offset-l1"> 
+                            <i class="material-icons prefix"> shop </i> 
+                            <select id="idcategoria" name="categoria">
+                                <option value="{{$produto->categoria}}" disabled selected> {{$produto->categoria}} </option>
+                            </select>
+                        </div>
                         <div class="input-field col s10 offset-s1 m10 offset-m1 l10 offset-l1">
                             <i class="material-icons prefix"> shop </i>
-                            <select name="tiponegocio">
+                            <select onchange="tNegocio()" id="idnegocio" name="tiponegocio">
                               <option value="{{$produto->tiponegocio}}" selected> {{$produto->tiponegocio}} </option>
                               <option value="Troca"> Troca </option> 
                               <option value="Venda"> Venda </option> 
                             </select>
                         </div>
-                        <div class="input-field col s10 offset-s1 m10 offset-m1 l10 offset-l1">
+                        <div id="divprec" class="input-field col s10 offset-s1 m10 offset-m1 l10 offset-l1">
                             <i class="material-icons prefix"> attach_money </i>
                             <input id="preco" name="preco" type="text" value="{{$produto->preco}}" class="active validate" required placeholder="R$ XXX,YY">
                             <label for="preco"> Preço </label>
@@ -302,10 +271,60 @@
       </script>
       
         <!-- Script Select Estados -->
-        <script>
-            $(document).ready(function(){
-            $('select').not('.disabled').formSelect();
-            });
-        </script>
+       <script> $(document).ready(function() {
+
+  // initialize
+  $('select').not('.disabled').formSelect();
+  
+  $("#cTipo").on('change',function() {
+    
+    // clear contents
+      var $cat = $("#divcat");
+    var $selectDropdown = 
+      $("#idcategoria")
+        .empty()
+        .html(' ');
+
+    // add new value
+    var idx = $("#cTipo").val();
+
+if(idx == 3 || idx == 6 || idx == 9){
+    $cat.attr("hidden",true);
+     $selectDropdown.append('<option value=""></option>');
+}else if(idx == 5){
+    $cat.attr("hidden",false);
+    $selectDropdown.append('<option value="Jogo">Jogo</option>');
+    $selectDropdown.append('<option value="Acessório">Acessório</option>');
+}else{
+    $cat.attr("hidden",false);
+     $selectDropdown.append('<option value="Jogo">Jogo</option>');
+    $selectDropdown.append('<option value="Acessório">Acessório</option>');
+    $selectDropdown.append('<option value="Console">Console</option>');
+}
+    
+
+    // trigger event
+    $selectDropdown.trigger('contentChanged');
+  });
+$('#idcategoria').on('contentChanged', function() {
+    // re-initialize (update)
+    $(this).not('.disabled').formSelect();
+  });
+  
+});
+
+</script>
+    <script>
+    $(document).ready(()=>{
+        $('.sidenav').sidenav();
+        $(".dropdown-trigger").dropdown();
+        $('.collapsible').collapsible();
+        // MOBILE ARROW     
+        $('#mob-especialidades').click(()=>{
+            let val = ($('.chevron').html() == 'chevron_right') ? 'keyboard_arrow_down' : 'chevron_right';
+            $('.chevron').html(val)
+        });
+    });
+</script>
 </body>
 </html>

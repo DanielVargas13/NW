@@ -1,8 +1,4 @@
-<?php 
 
-    require app_path() . '\..\resources\views\navbar.blade.php';
-    
-?>
 
 <!DOCTYPE html>
 <html>
@@ -57,20 +53,7 @@
 
 <body>
 
-    <!-- Nav-Bar
-    <div class="navbar-fixed">
-        <nav class="z-depth-0" style="background: #323A45;">
-            <div class="nav-wrapper">
-                <ul id="nav-mobile">
-                    <li> <img src="{{URL::asset('Imagens/LogoPNG2.png')}}" style="height: 50px; width: 50px; margin-top:9px;"> </li>
-                    <li class="left"><a class="sidenav-trigger waves-effect waves-light show-on-large modal-trigger" data-target="slide-out"> <i class="material-icons">menu</i> </a></li>
-                    <li class="ralewayFont"><a href="{{ route('home') }}"> New World </a></li>
-                    <li class="right"><a class="ralewayFont altera-cor" href="{{route('logout')}}"> Sair </a></li>
-                    <li class="right"><a class="ralewayFont modal-trigger" href="#"> E-Commerce </a></li>
-                </ul>
-            </div>
-        </nav>
-    </div> -->
+    @include('nav.navbar')
 
     @if (session('message'))
     <div id="modal1" class="modal">
@@ -84,55 +67,7 @@
     @endif
 
 <!-- Side Nav -->
-    <ul id="slide-out" class="sidenav">
-        <li>
-            <div class="user-view">
-                <div class="background">
-                    <img src="{{ URL::asset('Imagens/brackground2.jpg')}}">
-                </div>
-                @if (Auth::user()->cliente)
-                <a href="#user"><img class="circle" src="{{ URL::asset('Imagens/'.Auth::user()->cliente->foto)}}"></a>
-                @else
-                <a href="#user"><img class="circle" src="{{ URL::asset('Imagens/homem_perfil.jpg')}}"></a>
-                @endif
-                <a href="#name"><span class="white-text name"> {{ Auth::user()->nome }} </span></a>
-            </div>
-        </li>
-        <li class="no-padding">
-            <ul class="collapsible collapsible-accordion">
-                <li><a class="waves-effect collapsible-header" href="#"> Gerênciar Perfil <i class="material-icons"> arrow_drop_down</i></a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li><a class="waves-effect" href="cadastroCompleto/{{ Auth::user()->idGamer }}"> Cadastro Completo </a></li>
-                            <li><a class="waves-effect" href="atualizarCadastro/{{ Auth::user()->idGamer }}"> Atualizar Cadastro </a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </li>
-
-        <li>
-            <div class="divider"></div>
-        </li>
-
-        <li class="no-padding">
-            <ul class="collapsible collapsible-accordion">
-                <li><a class="waves-effect collapsible-header" href="#"> Gerênciar Produtos <i class="material-icons"> arrow_drop_down</i></a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li><a class="waves-effect" href="cadastroProduto/{{ Auth::user()->idGamer }}"> Cadastrar Produto </a></li>
-                            <li><a class="waves-effect" href="meusProdutos/{{ Auth::user()->idGamer }}"> Meus Produtos </a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </li>
-
-        <li>
-            <div class="divider"></div>
-        </li>
-
-    </ul>
+     @include('nav.sidenav')
 	
 	<!--Conteudo do corpo da pÃ¡gina-->
 	<!--Imagens a esquerda-->	
@@ -238,7 +173,18 @@
         });
 
     </script>
-
+<script>
+    $(document).ready(()=>{
+        $('.sidenav').sidenav();
+        $(".dropdown-trigger").dropdown();
+        $('.collapsible').collapsible();
+        // MOBILE ARROW     
+        $('#mob-especialidades').click(()=>{
+            let val = ($('.chevron').html() == 'chevron_right') ? 'keyboard_arrow_down' : 'chevron_right';
+            $('.chevron').html(val)
+        });
+    });
+</script>
 </body>
 
 </html>

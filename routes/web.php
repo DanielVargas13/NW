@@ -19,17 +19,17 @@ Route::get('/', 'PagesController@index')->name('index');
 
 Route::post('/login', 'GamerController@login')->name('login');
 
-Route::get('/cadastroProduto/{id}', 'ClienteController@acessoCP');
+Route::get('/cadastroProduto/{id}', 'ClienteController@acessoCP')->name('cProduto');
 
 Route::get('/logout', 'GamerController@logout')->name('logout');
 
-Route::get('/meusProdutos/{id}', 'ClienteController@acessoMP');
+Route::get('/meusProdutos/{id}', 'ClienteController@acessoMP')->name('mProduto');
 
-Route::get('/atualizarCadastro/{idC}', 'ClienteController@edit');
+Route::get('/atualizarCadastro/{idC}', 'ClienteController@edit')->name('aCadastro');
 
 //Route::get('/atualizarGamer/{g}', 'GamerController@up');
 
-Route::get('/cadastroCompleto/{id}', 'ClienteController@create');
+Route::get('/cadastroCompleto/{id}', 'ClienteController@create')->name('cCadastro');
 
 Route::get('/home','ProdutoController@ecommerce')->name('home');
 

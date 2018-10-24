@@ -62,6 +62,7 @@ class ProdutoController extends Controller
         $request->foto->move(public_path('Imagens'), $fotoName);
 
         $produto->foto = $fotoName;
+        $produto->categoria = $request->categoria;
         $produto->idTipoProduto = $request->idTipoProduto;
         $produto->save();
         $produto->cliente()->attach($request->idCliente,['dataInicio' => $request->dataInicio, 'dataFim' => $request->dataFim, 'situacao' => $request->situacao]);
@@ -132,6 +133,7 @@ class ProdutoController extends Controller
             $request->foto->move(public_path('Imagens'), $fotoName);
             $produto->foto = $fotoName;
         }
+        $produto->categoria = $request->categoria;
         $produto->idTipoProduto = $request->idTipoProduto;
         $produto->save();
         return redirect()->route('home')->with('message', 'Atualização produto efetuado!');
