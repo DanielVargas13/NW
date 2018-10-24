@@ -1,3 +1,9 @@
+<?php 
+
+    require app_path() . '\..\resources\views\navbar.blade.php';
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,8 +106,8 @@
 <body>
 
     <!-- Nav-Bar -->
-    <?php
-    require_once navbar.blade.php;
+    <?php 
+        require app_path() . '\..\resources\views\navbar.blade.php';
     ?>
 
     @if (session('message'))

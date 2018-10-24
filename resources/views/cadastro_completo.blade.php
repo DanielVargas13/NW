@@ -1,3 +1,9 @@
+<?php 
+
+    require app_path() . '\..\resources\views\navbar.blade.php';
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,7 +89,7 @@
 </head>
 <body>
 
-    <!-- Nav-Bar -->
+    <!-- Nav-Bar
     <div class="navbar-fixed">
         <nav class="z-depth-0" style="background: #323A45;">
             <div class="nav-wrapper">
@@ -96,7 +102,7 @@
                 </ul>
             </div>
         </nav>
-    </div>
+    </div> -->
 
     @if (session('message'))
     <div id="modal1" class="modal">

@@ -1,7 +1,7 @@
 <?php 
 
     require app_path() . '\..\resources\views\navbar.blade.php';
-
+    
 ?>
 
 <!DOCTYPE html>
@@ -57,8 +57,8 @@
 
 <body>
 
-    <!-- Nav-Bar -->
-    <!-- <div class="navbar-fixed">
+    <!-- Nav-Bar
+    <div class="navbar-fixed">
         <nav class="z-depth-0" style="background: #323A45;">
             <div class="nav-wrapper">
                 <ul id="nav-mobile">
