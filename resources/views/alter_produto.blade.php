@@ -288,13 +288,24 @@
     // add new value
     var idx = $("#cTipo").val();
 
-if(idx == 3 || idx == 6 || idx == 9){
-    $cat.attr("hidden",true);
-     $selectDropdown.append('<option value=""></option>');
+if(idx == 3){
+    $cat.attr("hidden",false);
+      $selectDropdown.append('<option value="Acessório">Acessório</option>');
+    $selectDropdown.append('<option value="Action Figure">Action Figure</option>');
+    $selectDropdown.append('<option value="Caneca">Caneca</option>');
+    $selectDropdown.append('<option value="Funko POP">Funko POP</option>');
+    $selectDropdown.append('<option value="Livro">Livro</option>');
+    $selectDropdown.append('<option value="Miniatura">Miniatura</option>');
+    $selectDropdown.append('<option value="Poster">Poster</option>');
+    $selectDropdown.append('<option value="Quadro">Quadro</option>');
+     $selectDropdown.append('<option value="Roupa">Roupa</option>');
 }else if(idx == 5){
     $cat.attr("hidden",false);
     $selectDropdown.append('<option value="Jogo">Jogo</option>');
     $selectDropdown.append('<option value="Acessório">Acessório</option>');
+}else if(idx == 8){
+    $cat.attr("hidden",true);
+      $selectDropdown.append('<option value=""></option>');
 }else{
     $cat.attr("hidden",false);
      $selectDropdown.append('<option value="Jogo">Jogo</option>');

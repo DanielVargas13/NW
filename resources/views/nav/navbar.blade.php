@@ -29,7 +29,7 @@
     <div class="container">
         <div class="nav-wrapper">
             <ul class="left hide-on-med-and-down">
-                <li><a href="">Home</a></li>
+                <li><a href="{{ route('home') }}">Home</a></li>
                 <li>
                 <a class="dropdown-trigger"  data-target="drop-especialidade">Categorias<i class="material-icons right">arrow_drop_down</i></a>        
                 </li>
@@ -44,12 +44,11 @@
 
 <!-- DROPDOWN STRUCTURE -->
 <ul id="drop-especialidade" class="dropdown-content" style="background: #383F4A;">
-    <li><a href="{{route('categoria',3)}}" class="white-text">Collections</a></li>
+    <li><a href="{{route('categoria',3)}}" class="white-text">Colecionáveis</a></li>
     <li><a href="{{route('categoria',4)}}" class="white-text">Nintendo</a></li>
     <li><a href="{{route('categoria',5)}}" class="white-text">PC</a></li>
-    <li><a href="{{route('categoria',6)}}" class="white-text">Personagens</a></li>
-    <li><a href="{{route('categoria',7)}}" class="white-text">PS4</a></li>
-    <li><a href="{{route('categoria',8)}}" class="white-text">X-BOX</a></li>
-    <li><a href="{{route('categoria',9)}}" class="white-text">Outros</a></li>
+    <li><a href="{{route('categoria',6)}}" class="white-text">PS4</a></li>
+    <li><a href="{{route('categoria',7)}}" class="white-text">X-BOX</a></li>
+    <li><a href="{{route('categoria',8)}}" class="white-text">Outros</a></li>
 </ul>
   

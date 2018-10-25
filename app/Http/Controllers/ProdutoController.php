@@ -97,7 +97,8 @@ class ProdutoController extends Controller
     {
         $tipo = TipoProduto::where('idTipo',$cat)->firstOrFail();
         $produtos = Produto::where('idTipoProduto',$tipo->idTipo)->get();
-        return view('home')->with(['produtos' => $produtos]);
+        session(['idcategoria' => $cat]);
+        return view('resultado')->with(['produtos' => $produtos]);
     }
     /**
      * Show the form for editing the specified resource.

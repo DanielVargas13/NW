@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 24-Out-2018 às 13:48
+-- Generation Time: 25-Out-2018 às 23:51
 -- Versão do servidor: 10.1.35-MariaDB
 -- versão do PHP: 7.2.9
 
@@ -25,7 +25,6 @@ SET time_zone = "+00:00";
 CREATE DATABASE new_world;
 
 USE new_world;
-
 -- --------------------------------------------------------
 
 --
@@ -60,7 +59,6 @@ CREATE TABLE `ator` (
   `idAtor` int(10) UNSIGNED NOT NULL,
   `nome` varchar(60) NOT NULL,
   `foto` varchar(255) NOT NULL,
-  `gameography` varchar(255) NOT NULL,
   `updated_at` datetime NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -95,7 +93,7 @@ CREATE TABLE `cliente` (
   `numero` int(10) UNSIGNED NOT NULL,
   `bairro` varchar(60) NOT NULL,
   `cidade` varchar(60) NOT NULL,
-  `estado` char(2) NOT NULL,
+  `estado` varchar(30) NOT NULL,
   `cep` varchar(9) NOT NULL,
   `foto` varchar(255) NOT NULL,
   `idGamer` int(10) UNSIGNED NOT NULL,
@@ -108,20 +106,18 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`idCliente`, `nick`, `telefone`, `rua`, `numero`, `bairro`, `cidade`, `estado`, `cep`, `foto`, `idGamer`, `updated_at`, `created_at`) VALUES
-(3, 'DeRezen313', '(99) 99999-9999', 'Bairro São Sebastião', 195, 'São Sebastião', 'Matozinhos', 'mg', '35720-000', '1539111904.jpg', 7, '2018-10-09 19:05:04', '2018-10-09 19:05:04');
+(3, 'DeRezen313', '(99) 99999-9999', 'Bairro São Sebastião', 195, 'São Sebastião', 'Matozinhos', 'mg', '35720-000', '1539111904.jpg', 7, '2018-10-09 19:05:04', '2018-10-09 19:05:04'),
+(4, 'DeRezen313', '(99) 99999-9999', 'Rua Bela Vista', 195, 'São Sebastião', 'Matozinhos', 'Minas Gerais', '35720000', '1540504181.jpg', 8, '2018-10-25 21:49:41', '2018-10-25 21:49:41');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `elenco`
+-- Estrutura da tabela `gameografia`
 --
 
-CREATE TABLE `elenco` (
-  `idElenco` int(10) UNSIGNED NOT NULL,
+CREATE TABLE `gameografia` (
   `idJogo` int(10) UNSIGNED NOT NULL,
-  `idAtor` int(10) UNSIGNED NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `created_at` datetime NOT NULL
+  `idAtor` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -145,7 +141,8 @@ CREATE TABLE `gamer` (
 --
 
 INSERT INTO `gamer` (`idGamer`, `nome`, `email`, `senha`, `remember_token`, `created_at`, `updated_at`) VALUES
-(7, 'Daniel Vargas', 'megustagames33@gmail.com', '12345678', 'RLGpHwngKpvqM2XyUTOgaKPpz6S81geQxjCBJjz37krnW7NfzHx7WfCG4FvG', '2018-10-09 22:02:59', '2018-10-09 22:02:59');
+(7, 'Daniel Vargas', 'megustagames33@gmail.com', '12345678', 'W2yqjRXsONJOfsJKOO07S2L41ZkuUQD4UtMHZAmxdO1uw79W5PMokpfGXHLT', '2018-10-09 22:02:59', '2018-10-09 22:02:59'),
+(8, 'Fernando Jean', 'megustagames331@gmail.com', '12345678', NULL, '2018-10-26 00:46:59', '2018-10-26 00:46:59');
 
 -- --------------------------------------------------------
 
@@ -250,13 +247,12 @@ CREATE TABLE `tipoproduto` (
 --
 
 INSERT INTO `tipoproduto` (`idTipo`, `nome`) VALUES
-(3, 'Collections'),
+(3, 'Colecionáveis'),
 (4, 'Nintendo'),
 (5, 'PC'),
-(6, 'Personagens'),
-(7, 'PS4'),
-(8, 'X-BOX'),
-(9, 'Outros');
+(6, 'PS4'),
+(7, 'X-BOX'),
+(8, 'Outros');
 
 --
 -- Indexes for dumped tables
@@ -291,10 +287,10 @@ ALTER TABLE `cliente`
   ADD KEY `idGamer` (`idGamer`);
 
 --
--- Indexes for table `elenco`
+-- Indexes for table `gameografia`
 --
-ALTER TABLE `elenco`
-  ADD PRIMARY KEY (`idElenco`),
+ALTER TABLE `gameografia`
+  ADD PRIMARY KEY (`idJogo`,`idAtor`),
   ADD KEY `idJogo` (`idJogo`),
   ADD KEY `idAtor` (`idAtor`);
 
@@ -356,19 +352,13 @@ ALTER TABLE `avaliacao`
 -- AUTO_INCREMENT for table `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idCliente` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `elenco`
---
-ALTER TABLE `elenco`
-  MODIFY `idElenco` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idCliente` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `gamer`
 --
 ALTER TABLE `gamer`
-  MODIFY `idGamer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idGamer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `jogo`
@@ -425,11 +415,11 @@ ALTER TABLE `cliente`
   ADD CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`idGamer`) REFERENCES `gamer` (`idGamer`);
 
 --
--- Limitadores para a tabela `elenco`
+-- Limitadores para a tabela `gameografia`
 --
-ALTER TABLE `elenco`
-  ADD CONSTRAINT `elenco_ibfk_1` FOREIGN KEY (`idJogo`) REFERENCES `jogo` (`idJogo`),
-  ADD CONSTRAINT `elenco_ibfk_2` FOREIGN KEY (`idAtor`) REFERENCES `ator` (`idAtor`);
+ALTER TABLE `gameografia`
+  ADD CONSTRAINT `gameografia_ibfk_1` FOREIGN KEY (`idJogo`) REFERENCES `jogo` (`idJogo`),
+  ADD CONSTRAINT `gameografia_ibfk_2` FOREIGN KEY (`idAtor`) REFERENCES `ator` (`idAtor`);
 
 --
 -- Limitadores para a tabela `livestream`
