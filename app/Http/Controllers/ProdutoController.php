@@ -83,7 +83,22 @@ class ProdutoController extends Controller
         })->inRandomOrder()->limit(4)->get();
         return view('produto')->with(['produto' => $produto,'anuncios' => $anuncios]);
     }
+    
+    public function search(Request $request)
+    {
+        $input = $request->pesquisa;
+        $produtos = Produto::whereHas('tipo',function($query) use($input){
+            $query->where('produto.nome','LIKE','%'.$input.'%')->orWhere('produto.categoria','LIKE','%'.$input.'%')->orWhere('tipoproduto.nome','LIKE','%'.$input.'%');
+        })->get();
+        return view('home')->with(['produtos' => $produtos]);
+    }
 
+    public function searchCat($cat)
+    {
+        $tipo = TipoProduto::where('idTipo',$cat)->firstOrFail();
+        $produtos = Produto::where('idTipoProduto',$tipo->idTipo)->get();
+        return view('home')->with(['produtos' => $produtos]);
+    }
     /**
      * Show the form for editing the specified resource.
      *

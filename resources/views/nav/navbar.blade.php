@@ -9,10 +9,12 @@
                 <li class="right ralewayFont"><a href="" ><i class="material-icons">shopping_cart</i></a></li>
 
                 <li class="right">
-                    <form>
+                    <form method="GET" action="{{route('search')}}">
+                        {{ csrf_field() }}
                         <div class="input-field" style="background: #383F4A;">
-                            <input id="search" type="search" placeholder="Procurar" required>
-                            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                            <input id="search" name="pesquisa" type="search" placeholder="Procurar" required>
+                            <label class="label-icon" for="search"><button class="btn waves-effect waves-light ralewayFont modal-trigger corbtn" type="submit"><i class="material-icons"> search </i>    
+                                </button> </label>
                             <i class="material-icons">close</i>
                         </div>
                     </form>
@@ -42,8 +44,12 @@
 
 <!-- DROPDOWN STRUCTURE -->
 <ul id="drop-especialidade" class="dropdown-content" style="background: #383F4A;">
-    <li><a href="" class="white-text">Categ1</a></li>
-    <li><a href="" class="white-text">Categ2</a></li>
-    <li><a href="" class="white-text">Categ3</a></li>
+    <li><a href="{{route('categoria',3)}}" class="white-text">Collections</a></li>
+    <li><a href="{{route('categoria',4)}}" class="white-text">Nintendo</a></li>
+    <li><a href="{{route('categoria',5)}}" class="white-text">PC</a></li>
+    <li><a href="{{route('categoria',6)}}" class="white-text">Personagens</a></li>
+    <li><a href="{{route('categoria',7)}}" class="white-text">PS4</a></li>
+    <li><a href="{{route('categoria',8)}}" class="white-text">X-BOX</a></li>
+    <li><a href="{{route('categoria',9)}}" class="white-text">Outros</a></li>
 </ul>
   

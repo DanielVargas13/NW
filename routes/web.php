@@ -33,6 +33,10 @@ Route::get('/cadastroCompleto/{id}', 'ClienteController@create')->name('cCadastr
 
 Route::get('/home','ProdutoController@ecommerce')->name('home');
 
+Route::get('/pesquisa','ProdutoController@search')->name('search');
+
+Route::get('/categoria/{idCat}','ProdutoController@searchCat')->name('categoria');
+
 Route::resource('gamer','GamerController');
 
 Route::resource('produto','ProdutoController');
