@@ -100,6 +100,53 @@ class ProdutoController extends Controller
         session(['idcategoria' => $cat]);
         return view('resultado')->with(['produtos' => $produtos]);
     }
+    
+    public function filtragem(Request $request)
+ 
+    {
+
+        if($request->ajax()){
+
+            $output="";
+
+            $produtos=Produto::where('title','LIKE','%'.$request->search."%")->get();
+
+        if($produtos){
+
+        foreach ($produtos as $key => $prod) {
+
+            $output.='<div class="col s4 m4 l4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="'.URL::asset('Imagens/'.$prod->foto).'">
+                    </div>
+                    <div class="card-content">';
+                         if ($prod->tiponegocio == "Venda"){
+                            $output.='<span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> '.$prod->tipo->nome.' - '.$prod->nome.' - '.$prod->tiponegocio.' - R$ '.$prod->preco.' </span>'; 
+                         } else{
+                             $output.='<span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> '.$prod->tipo->nome.' - '.$prod->nome.' - '.$prod->tiponegocio.' </span>'; 
+                         }
+                        foreach($prod->cliente as $cliente){
+                            $output.='<span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;">'.$cliente->gamer->nome.'</span>';
+                        }
+                         $output.='<span class="card-title activator center">
+                        <a href="'.route('produto.show',$prod->idProduto).'"><button class="btn blue waves-effect waves-blue darken-3 center" type="button" onclick=""> Comprar <i class="material-icons right"> add_shopping_cart </i></button></a>
+                        </span>
+                    </div>
+                </div>
+            </div>';
+
+        }
+
+        return Response($output);
+
+           }
+
+           }
+
+ 
+ 
+    }
     /**
      * Show the form for editing the specified resource.
      *

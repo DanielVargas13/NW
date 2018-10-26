@@ -1,6 +1,4 @@
-<?php
-require_once('navbar.php');
-?>
+
 
 <!DOCTYPE html>
 <html>
@@ -62,7 +60,10 @@ require_once('navbar.php');
     </head>
 
     <body class="white">
-           
+           @include('nav.navbar')
+
+<!-- Side Nav -->
+     @include('nav.sidenav')
         <h1 class="ralewayFont center"> Minha Cesta </h1>
         
         <div class="container">
@@ -77,6 +78,7 @@ require_once('navbar.php');
                 </thead>
 
                 <tbody>
+                    @foreach($produtos as $prod)
                     <tr>
                         <td> <img src="{{ URL::asset('Img_Prog/gow.png')}}" style="height:150px; width: 120px; float:left;"> <br> <p class="ralewayFont nome"> <b>Jogo Gof of War - PS4 </b> </p><p class="ralewayFont vendedor"> <b> Vendido por: </b>Daniel Vargas </p></td>
                         <td>  
@@ -99,6 +101,7 @@ require_once('navbar.php');
                         </td>
                         <td class="ralewayFont vendedor"> <b>R$ 160,00</b> </td>
                   </tr>
+                    @endforeach
                     <tr>
                         <td> <img src="{{ URL::asset('Img_Prog/funko.jpg')}}" style="height:150px; width: 120px; float:left;"> <br> <p class="ralewayFont nome"> <b> Funko Pop Sub-Zero - Collections </b> </p><p class="ralewayFont vendedor"> <b> Vendido por: </b> Grabriel Magno </p></td>
                         <td>  
