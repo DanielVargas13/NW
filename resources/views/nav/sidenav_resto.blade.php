@@ -1,20 +1,20 @@
 <!-- SIDE-NAV CONSOLES -->
 <ul id="slide-out" class="sidenav sidenav-fixed">
     <div class="container">
-        <form action="#">
-
+        <form method="GET" action="{{route('filtragem')}}">
+            {{ csrf_field() }}
             <h4 class="ralewayFont"> Tipos </h4>
 
             <label>
-                <input name="tipos" value="Acessório" type="checkbox" class="filled-in" />
+                <input name="tipos[]" value="Acessório" type="checkbox" class="filled-in" />
                 <span class="center textoSideNav"> Acessórios </span>
             </label>
             <label>
-                <input name="tipos" value="Console" type="checkbox" class="filled-in" />
+                <input name="tipos[]" value="Console" type="checkbox" class="filled-in" />
                 <span class="center textoSideNav"> Console </span>
             </label>
             <label>
-                <input name="tipos" value="Jogo" type="checkbox" class="filled-in" />
+                <input name="tipos[]" value="Jogo" type="checkbox" class="filled-in" />
                 <span class="center textoSideNav"> Jogos </span>
             </label>
 
@@ -23,15 +23,15 @@
             <h4 class="ralewayFont"> Status </h4>
 
             <label>
-                <input name="status" value="Novo" type="checkbox" class="filled-in" />
+                <input name="status[]" value="Novo" type="checkbox" class="filled-in" />
                 <span class="center textoSideNav"> Novo </span>
             </label>
             <label>
-                <input name="status" value="Seminovo" type="checkbox" class="filled-in" />
+                <input name="status[]" value="Seminovo" type="checkbox" class="filled-in" />
                 <span class="center textoSideNav"> Seminovo </span>
             </label>
             <label>
-                <input name="status" value="Usado" type="checkbox" class="filled-in" />
+                <input name="status[]" value="Usado" type="checkbox" class="filled-in" />
                 <span class="center textoSideNav"> Usado </span>
             </label>
 
@@ -51,7 +51,7 @@
 
             <br><br>
 
-            <a class="waves-effect waves-light btn" style="background: #323A45;"><i class="material-icons right"> search </i> Fazer Busca </a>
+            <button id="filtrar" class="btn waves-effect waves-light ralewayFont modal-trigger corbtn" type="submit"><i class="material-icons right"> search </i> Fazer Busca </button>
 
         </form>
     </div>

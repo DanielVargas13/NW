@@ -27,7 +27,7 @@ Route::get('/meusProdutos/{id}', 'ClienteController@acessoMP')->name('mProduto')
 
 Route::get('/atualizarCadastro/{idC}', 'ClienteController@edit')->name('aCadastro');
 
-Route::get('/filtragem','ProdutoController@filtragem');
+Route::get('/filtragem','ProdutoController@filtragem')->name('filtragem');
 
 //Route::get('/atualizarGamer/{g}', 'GamerController@up');
 

@@ -104,48 +104,49 @@ class ProdutoController extends Controller
     public function filtragem(Request $request)
  
     {
+        $tipos = $request->tipos;
+        $status = $request->status;
+        $preco = $request->preco;
 
-        if($request->ajax()){
-
-            $output="";
-
-            $produtos=Produto::where('title','LIKE','%'.$request->search."%")->get();
-
-        if($produtos){
-
-        foreach ($produtos as $key => $prod) {
-
-            $output.='<div class="col s4 m4 l4">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="'.URL::asset('Imagens/'.$prod->foto).'">
-                    </div>
-                    <div class="card-content">';
-                         if ($prod->tiponegocio == "Venda"){
-                            $output.='<span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> '.$prod->tipo->nome.' - '.$prod->nome.' - '.$prod->tiponegocio.' - R$ '.$prod->preco.' </span>'; 
-                         } else{
-                             $output.='<span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> '.$prod->tipo->nome.' - '.$prod->nome.' - '.$prod->tiponegocio.' </span>'; 
-                         }
-                        foreach($prod->cliente as $cliente){
-                            $output.='<span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;">'.$cliente->gamer->nome.'</span>';
-                        }
-                         $output.='<span class="card-title activator center">
-                        <a href="'.route('produto.show',$prod->idProduto).'"><button class="btn blue waves-effect waves-blue darken-3 center" type="button" onclick=""> Comprar <i class="material-icons right"> add_shopping_cart </i></button></a>
-                        </span>
-                    </div>
-                </div>
-            </div>';
-
+        $tipo = TipoProduto::where('idTipo',session('idcategoria'))->firstOrFail();
+        $produtos = null;
+        
+        if($request->has('tipos') && $request->has('status')){
+            if($preco==1){
+                $produtos = Produto::where('idTipoProduto',$tipo->idTipo)->whereIn('categoria', $tipos)->whereIn('status', $status)->orderBy('preco','desc')->get();
+            }else if($preco==0){
+                $produtos = Produto::where('idTipoProduto',$tipo->idTipo)->whereIn('categoria', $tipos)->whereIn('status', $status)->orderBy('preco','asc')->get();
+            }else{
+                $produtos = Produto::where('idTipoProduto',$tipo->idTipo)->whereIn('categoria', $tipos)->whereIn('status', $status)->get();
+            }
+        }else if($request->has('status')){
+            if($preco==1){
+                $produtos = Produto::where('idTipoProduto',$tipo->idTipo)->whereIn('status', $status)->orderBy('preco','desc')->get();
+            }else if($preco==0){
+                $produtos = Produto::where('idTipoProduto',$tipo->idTipo)->whereIn('status', $status)->orderBy('preco','asc')->get();
+            }else{
+                $produtos = Produto::where('idTipoProduto',$tipo->idTipo)->whereIn('status', $status)->get();
+            }
+        }else if($request->has('tipos')){
+            if($preco==1){
+                $produtos = Produto::where('idTipoProduto',$tipo->idTipo)->whereIn('categoria', $tipos)->orderBy('preco','desc')->get();
+            }else if($preco==0){
+                $produtos = Produto::where('idTipoProduto',$tipo->idTipo)->whereIn('categoria', $tipos)->orderBy('preco','asc')->get();
+            }else{
+                $produtos = Produto::where('idTipoProduto',$tipo->idTipo)->whereIn('categoria', $tipos)->get();
+            }
+        }else{
+            if($preco==1){
+                $produtos = Produto::where('idTipoProduto',$tipo->idTipo)->orderBy('preco','desc')->get();
+            }else if($preco==0){
+                $produtos = Produto::where('idTipoProduto',$tipo->idTipo)->orderBy('preco','asc')->get();
+            }else{
+                $produtos = Produto::where('idTipoProduto',$tipo->idTipo)->get();
+            }
         }
+    
+        return view('resultado')->with(['produtos' => $produtos]);
 
-        return Response($output);
-
-           }
-
-           }
-
- 
- 
     }
     /**
      * Show the form for editing the specified resource.

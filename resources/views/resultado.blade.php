@@ -20,6 +20,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bitter|Playfair+Display" rel="stylesheet">
+    
     <!-- Se remover isso vai parar de funcionar -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -54,7 +55,7 @@
         }
 
     </style>
-
+    
 </head>
 
 <body>
@@ -87,7 +88,7 @@
 <!-- Exibe produtos do E-Commerce -->
 <div class="container">
         <div id="resultado" class="row">
-            <!--@foreach($produtos as $prod)
+            @foreach($produtos as $prod)
             <div class="col s4 m4 l4">
                 <div class="card">
                     <div class="card-image">
@@ -108,7 +109,7 @@
                     </div>
                 </div>
             </div>
-            @endforeach-->
+            @endforeach
         </div>
     </div>
     <div id='app-js' hashkey='A75312THG10$I21389#'>
@@ -151,39 +152,7 @@
         });
     });
 </script>
-<script type="text/javascript">
-    $("input[type='checkbox']:checked").change(function() {
-        $vpreco = $("input[name='preco']:checked"). val();
-        
-        var tipos = [];
-	
-        $("input[name='tipos']:checked").each(function() {
-            tipos.push($(this).val());
-        });
-        var status = [];
-	
-        $("input[name='tipos']:checked").each(function() {
-            status.push($(this).val());
-        });
 
-        $.ajax({
-
-            type: 'get',
-
-            url: '{{URL::to('filtragem')}}',
-
-            data: {'tipo': tipos,'status':status,'preco':$vpreco},
-
-            success: function(data) {$('#resultado').html(data);}
-
-        });
-
-    });
-</script>
-
-<script type="text/javascript">
-    $.ajaxSetup({headers: {'csrftoken': '{{ csrf_token() }}'}});
-</script>
 </body>
 
 </html>
