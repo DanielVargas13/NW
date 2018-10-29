@@ -102,7 +102,8 @@
                             <p>Preço: R$ {{$produto->preco}}</p>
                         @endif
                         <span class="card-title activator center">
-                        <a href="#"><button class="btn blue waves-effect waves-blue darken-3 center" type="button" onclick=""> Comprar <i class="material-icons right"> add_shopping_cart </i></button></a>
+                        <a href="{{route('adicionarCar',$produto->idProduto)}}"><button class="btn blue waves-effect waves-blue darken-3 center" type="button" onclick=""> Comprar <i class="material-icons right"> add_shopping_cart </i></button></a>
+                        <a href="{{route('adicionar',$produto->idProduto)}}"><button class="btn blue waves-effect waves-blue darken-3 center" type="button" onclick=""> Adicionar ao Carrinho <i class="material-icons right"> add_shopping_cart </i></button></a>
                         </span>
 					</div>
 				</div>

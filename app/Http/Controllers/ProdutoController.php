@@ -6,6 +6,7 @@ use App\Produto;
 use App\TipoProduto;
 use Illuminate\Http\Request;
 use Auth;
+use Cart;
 
 class ProdutoController extends Controller
 {
@@ -200,8 +201,61 @@ class ProdutoController extends Controller
         $produto->categoria = $request->categoria;
         $produto->idTipoProduto = $request->idTipoProduto;
         $produto->save();
-        return redirect()->route('home')->with('message', 'Atualização produto efetuado!');
+        return back()->with('message', 'Atualização produto efetuado!');
     }
+    
+    public function addcarrinho($id){
+        $produto = Produto::where('idProduto',$id)->firstOrFail();
+        Cart::session(Auth::user()->cliente->idCliente)->add($produto->idProduto,$produto->nome,$produto->preco,1,array());
+        return back()->with('message', 'Produto adicionado');
+    }
+    
+    public function addcarrinhoFinal($id){
+        $produto = Produto::where('idProduto',$id)->firstOrFail();
+        Cart::session(Auth::user()->cliente->idCliente)->add($produto->idProduto,$produto->nome,$produto->preco,1,array());
+        $produtos = $this->carrinhoFinal();
+        return view('comprar_produto')->with(['produtos' => $produtos]);
+    }
+    
+    public function carrinho(){
+        $carrinho = Cart::session(Auth::user()->cliente->idCliente)->getContent();
+        $idprods = array();
+        foreach($carrinho as $prod){
+            array_push($idprods,$prod->id);
+        }
+        $produtos = Produto::whereIn('idProduto',$idprods)->get();
+        return view('comprar_produto')->with(['produtos' => $produtos]);
+    }
+    
+    public function carrinhoFinal(){
+        $carrinho = Cart::session(Auth::user()->cliente->idCliente)->getContent();
+        $idprods = array();
+        foreach($carrinho as $prod){
+            array_push($idprods,$prod->id);
+        }
+        $produtos = Produto::whereIn('idProduto',$idprods)->get();
+        return $produtos;
+    }
+    
+    public function alterarqtd($id,$qtd){
+       Cart::session(Auth::user()->cliente->idCliente)->update($id, array(
+        'quantity' => array('relative' => false,'value' => $qtd),
+       ));
+        $produtos = $this->carrinhoFinal();
+        return view('comprar_produto')->with(['produtos' => $produtos]);
+    }
+    
+    public function removerprod($id){
+        Cart::session(Auth::user()->cliente->idCliente)->remove($id);
+        $produtos = $this->carrinhoFinal();
+        return view('comprar_produto')->with(['produtos' => $produtos]);
+    }
+    
+    public function limparCar(){
+        Cart::session(Auth::user()->cliente->idCliente)->clear();
+        $produtos = $this->carrinhoFinal();
+        return view('comprar_produto')->with(['produtos' => $produtos]);
+}
 
     /**
      * Remove the specified resource from storage.
@@ -214,7 +268,7 @@ class ProdutoController extends Controller
         $produto = Produto::where('idProduto',$id)->first();
         $produto->cliente()->detach();
         $produto->delete();
-        return redirect()->route('home')->with('message', 'Produto deletado efetuado!');
+        return back()->with('message', 'Produto deletado efetuado!');
     }
     
     

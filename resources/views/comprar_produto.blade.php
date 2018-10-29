@@ -80,7 +80,11 @@
                 <tbody>
                     @foreach($produtos as $prod)
                     <tr>
-                        <td> <img src="{{ URL::asset('Img_Prog/gow.png')}}" style="height:150px; width: 120px; float:left;"> <br> <p class="ralewayFont nome"> <b>Jogo Gof of War - PS4 </b> </p><p class="ralewayFont vendedor"> <b> Vendido por: </b>Daniel Vargas </p></td>
+                        <td> <img src="{{ URL::asset('Imagens/'.$prod->foto)}}" style="height:150px; width: 120px; float:left;"> <br> <p class="ralewayFont nome"> <b>{{$prod->categoria}} {{$prod->nome}} - {{$prod->tipo->nome}} </b> </p><p class="ralewayFont vendedor">
+                        @foreach($prod->cliente as $cliente)
+                            <b> Vendido por: </b>{{$cliente->gamer->nome}} 
+                        @endforeach
+                        </p></td>
                         <td>  
                             <div class="row">
                                 <div class="input-field col s4 m4 l4">
@@ -95,59 +99,13 @@
                             </div>
                             <div class="row"> 
                                 <div class="input-field col s4 m4 l4 center">
-                                    <a href="#" class="ralewayFont red-text"> Remover </a>
+                                    <a href="{{route('removerP',$prod->idProduto)}}" class="ralewayFont red-text"> Remover </a>
                                 </div>
                             </div>
                         </td>
-                        <td class="ralewayFont vendedor"> <b>R$ 160,00</b> </td>
+                        <td class="ralewayFont vendedor"> <b>R$ {{Cart::session(Auth::user()->cliente->idCliente)->get($prod->idProduto)->getPriceSum()}}</b> </td>
                   </tr>
                     @endforeach
-                    <tr>
-                        <td> <img src="{{ URL::asset('Img_Prog/funko.jpg')}}" style="height:150px; width: 120px; float:left;"> <br> <p class="ralewayFont nome"> <b> Funko Pop Sub-Zero - Collections </b> </p><p class="ralewayFont vendedor"> <b> Vendido por: </b> Grabriel Magno </p></td>
-                        <td>  
-                            <div class="row">
-                                <div class="input-field col s4 m4 l4">
-                                    <select>
-                                        <option value="1" selected> 1 Unidade </option>
-                                        <option value="2"> 2 Unidades </option>
-                                        <option value="3"> 3 Unidades </option>
-                                        <option value="4"> 4 Unidades </option>
-                                        <option value="5"> 5 Unidades </option>
-                                    </select>
-                              </div>
-                            </div>
-                            <div class="row"> 
-                                <div class="input-field col s4 m4 l4 center">
-                                    <a href="#" class="ralewayFont red-text"> Remover </a>
-                                </div>
-                            </div>
-
-                        </td>
-                        <td class="ralewayFont vendedor"> <b>R$ 70,00</b> </td>
-                  </tr>
-                    <tr>
-                        <td> <img src="{{ URL::asset('Img_Prog/3max.jpg')}}" style="height:150px; width: 120px; float:left;"> <br> <p class="ralewayFont nome"> <b> PS4 - Console </b> </p><p class="ralewayFont vendedor"> <b> Vendido por: </b> Davi Brandão </p></td>
-                        <td>  
-                            <div class="row">
-                                <div class="input-field col s4 m4 l4">
-                                    <select>
-                                        <option value="1" selected> 1 Unidade </option>
-                                        <option value="2"> 2 Unidades </option>
-                                        <option value="3"> 3 Unidades </option>
-                                        <option value="4"> 4 Unidades </option>
-                                        <option value="5"> 5 Unidades </option>
-                                    </select>
-                              </div>
-                            </div>
-                            <div class="row"> 
-                                <div class="input-field col s4 m4 l4 center">
-                                    <a href="#" class="ralewayFont red-text"> Remover </a>
-                                </div>
-                            </div>
-
-                        </td>
-                        <td class="ralewayFont vendedor"> <b>R$ 1800,00</b> </td>
-                  </tr>
                 </tbody>
             </table>
             
@@ -157,7 +115,7 @@
                 <div class="card horizontal grey lighten-3">
                     <div class="card-stacked">
                         <div class="card-content">
-                            <p class="valorCompra ralewayFont center"> <b>Valor Total da Compra: R$ 2030,00 </b> </p>
+                            <p class="valorCompra ralewayFont center"> <b>Valor Total da Compra: R$ {{Cart::session(Auth::user()->cliente->idCliente)->getTotal()}} </b> </p>
                         </div>
                     </div> 
               </div>
@@ -169,7 +127,7 @@
         <div class="row">
             <div class="container">
                 <div class="col s6 m6 l6 offset-s4 offset-m4 offset-l4">
-                <a class="waves-effect waves-light btn-large red"><i class="material-icons left"> close </i> Cancelar Compra </a>
+                <a href="{{route('limparCar')}}" class="waves-effect waves-light btn-large red"><i class="material-icons left"> close </i> Cancelar Compra </a>
                 <a class="waves-effect waves-light btn-large green pulse"><i class="material-icons right"> attach_money </i> Comprar Produtos </a>
                 </div>
             </div>           

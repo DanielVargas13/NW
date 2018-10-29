@@ -6,7 +6,7 @@
                 <li class="left"><a class="sidenav-trigger waves-effect waves-light show-on-large modal-trigger" data-target="slide-out"><i class="material-icons">menu</i></a></li>
                 <li class="ralewayFont"><a href="{{ route('home') }}">New World</a></li>
                 <li class="right ralewayFont"><a href="{{route('logout')}}"><i class="material-icons right">exit_to_app</i>Sair</a></li>
-                <li class="right ralewayFont"><a href="" ><i class="material-icons">shopping_cart</i></a></li>
+                <li class="right ralewayFont"><a href="{{route('carrinho')}}" ><i class="material-icons">shopping_cart</i></a></li>
 
                 <li class="right">
                     <form method="GET" action="{{route('search')}}">

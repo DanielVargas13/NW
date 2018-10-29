@@ -76,7 +76,7 @@
             var div = document.getElementById('divprec');
             if(negocio.value == 'Troca'){
                 div.hidden = true;
-                preco.value = null;
+                preco.value = 0;
                 preco.disabled = true;
             }else{
                 div.hidden = false;

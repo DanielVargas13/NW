@@ -39,6 +39,20 @@ Route::get('/pesquisa','ProdutoController@search')->name('search');
 
 Route::get('/categoria/{idCat}','ProdutoController@searchCat')->name('categoria');
 
+Route::get('/deletar/{idP}','ProdutoController@destroy')->name('deletar');
+
+Route::get('/adicionar/{idP}','ProdutoController@addcarrinho')->name('adicionar');
+
+Route::get('/adicionarCar/{idP}','ProdutoController@addcarrinhoFinal')->name('adicionarCar');
+
+Route::get('/carrinho','ProdutoController@carrinho')->name('carrinho');
+
+Route::get('/limparCar','ProdutoController@limparCar')->name('limparCar');
+
+Route::get('/removerP/{idP}','ProdutoController@removerprod')->name('removerP');
+
+Route::get('/alterarQ/id/{idP}/qtd/{qtd}','ProdutoController@alterarqtd')->name('alterarQ');
+
 Route::resource('gamer','GamerController');
 
 Route::resource('produto','ProdutoController');

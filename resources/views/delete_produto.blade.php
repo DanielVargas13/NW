@@ -80,19 +80,8 @@
                 <div class="card">
                     <div class="card-image">
                         <img src="{{ URL::asset('Imagens/'.$prod->foto)}}">
-                        <div class="fixed-action-btn click-to-toggle direction-top" style="position: absolute;">
-                            <a class="btn-floating btn-flat green">
-                                <i class="large material-icons"> autorenew </i>
-                            </a>
-                            <ul>
-                                <form style="display: inline-block;" method="POST" action="{{route('produto.destroy', $prod->idProduto)}}" data-toggle="tooltip" data-placement="top" title="Excluir" onsubmit="return confirm('Confirma exclusão?')">
-                                    {{method_field('DELETE')}}{{ csrf_field() }}
-                                    <button id="remover" class="btn-floating red" type="submit" style="background-color: #fff">
-                                        <a><i class="material-icons"> close </i></a>
-                                    </button></form>
-                                <li><a href="{{route('produto.edit', $prod->idProduto)}}" class="btn-floating blue"><i class="material-icons"> edit </i></a></li>
-                            </ul>
-                        </div>
+                            <a href="{{route('deletar', $prod->idProduto)}}"><button class="btn-floating red" type="button" onclick="return confirm('Confirma exclusão?')" style="background-color: #fff"><i class="material-icons"> close </i></button></a>
+                         <a href="{{route('produto.edit', $prod->idProduto)}}"><button class="btn-floating blue" type="button" onclick=""><i class="material-icons"> edit </i></button></a>
                     </div>
                     <div class="card-content">
                         @if ($prod->tiponegocio == "Venda")
