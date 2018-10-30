@@ -8,13 +8,22 @@
                 <li class="right ralewayFont"><a href="{{route('logout')}}"><i class="material-icons right">exit_to_app</i>Sair</a></li>
                 <li class="right ralewayFont"><a href="{{route('carrinho')}}" ><i class="material-icons">shopping_cart</i></a></li>
 
-                <li class="right">
+                <li class="right" style="height: 64px">
+                    <!-- <form method="GET" action="{{route('search')}}">
+                        <div class="input-field" style="background: #383F4A;">
+                            <input id="search" name="pesquisa" type="search" placeholder="Procurar" required>
+                            <a class="waves-effect waves-light ralewayFont modal-trigger" type="submit"><i class="material-icons"> search </i>    
+                                </a>
+                            <i class="material-icons">close</i>
+                        </div>
+                    </form>
+                     -->
+
                     <form method="GET" action="{{route('search')}}">
                         {{ csrf_field() }}
                         <div class="input-field" style="background: #383F4A;">
-                            <input id="search" name="pesquisa" type="search" placeholder="Procurar" required>
-                            <label class="label-icon" for="search"><button class="btn waves-effect waves-light ralewayFont modal-trigger corbtn" type="submit"><i class="material-icons"> search </i>    
-                                </button> </label>
+                            <input id="search" type="search" placeholder="Procurar" required>
+                            <label class="label-icon" for="search"><a id="search_button" style="margin-left: -15px"><i class="material-icons">search</i></a></label>
                             <i class="material-icons">close</i>
                         </div>
                     </form>
@@ -52,3 +61,9 @@
     <li><a href="{{route('categoria',8)}}" class="white-text">Outros</a></li>
 </ul>
   
+<script>
+    //CODIGO PARA ENVIAR FORMULARIO (NAO ESTA 100% FUNCIONAL) 
+    $(document).ready(()=>{
+        $('#search_button').submit();
+    })
+</script>
