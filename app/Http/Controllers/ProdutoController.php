@@ -7,6 +7,7 @@ use App\TipoProduto;
 use Illuminate\Http\Request;
 use Auth;
 use Cart;
+use File;
 
 class ProdutoController extends Controller
 {
@@ -81,7 +82,7 @@ class ProdutoController extends Controller
         $produto = Produto::where('idProduto',$id)->firstOrFail();
         $anuncios = Produto::whereHas('cliente',function($query){
             $query->where('anuncio.situacao',"Ativo");
-        })->inRandomOrder()->limit(4)->get();
+        })->inRandomOrder()->limit(3)->get();
         return view('produto')->with(['produto' => $produto,'anuncios' => $anuncios]);
     }
     
@@ -194,6 +195,7 @@ class ProdutoController extends Controller
         
         if($request->foto != null){
             //Upload de imagem
+            File::delete('Imagens/'.$produto->foto);
             $fotoName = time().'.'.$request->foto->getClientOriginalExtension();
             $request->foto->move(public_path('Imagens'), $fotoName);
             $produto->foto = $fotoName;
@@ -213,50 +215,58 @@ class ProdutoController extends Controller
     public function addcarrinhoFinal($id){
         $produto = Produto::where('idProduto',$id)->firstOrFail();
         Cart::session(Auth::user()->cliente->idCliente)->add($produto->idProduto,$produto->nome,$produto->preco,1,array());
-        $produtos = $this->carrinhoFinal();
-        return view('comprar_produto')->with(['produtos' => $produtos]);
+        return redirect()->route('carrinho');
     }
     
     public function carrinho(){
         $carrinho = Cart::session(Auth::user()->cliente->idCliente)->getContent();
         $idprods = array();
+        $qtdprods = array();
         foreach($carrinho as $prod){
             array_push($idprods,$prod->id);
+            $qtdprods[$prod->id] = $prod->quantity;
         }
         $produtos = Produto::whereIn('idProduto',$idprods)->get();
-        return view('comprar_produto')->with(['produtos' => $produtos]);
+        return view('comprar_produto')->with(['produtos' => $produtos,'qtd' => $qtdprods,'idps' => $idprods]);
     }
     
-    public function carrinhoFinal(){
-        $carrinho = Cart::session(Auth::user()->cliente->idCliente)->getContent();
-        $idprods = array();
-        foreach($carrinho as $prod){
-            array_push($idprods,$prod->id);
+    public function diminuirQtd($id){
+        $item = Cart::session(Auth::user()->cliente->idCliente)->get($id);
+        if($item->quantity != 1){
+            Cart::session(Auth::user()->cliente->idCliente)->update($id, array(
+                'quantity' => -1,
+            ));
+            return redirect()->route('carrinho');
+        }else{
+            return back();
         }
-        $produtos = Produto::whereIn('idProduto',$idprods)->get();
-        return $produtos;
     }
     
-    public function alterarqtd($id,$qtd){
+    public function aumentarQtd($id){
        Cart::session(Auth::user()->cliente->idCliente)->update($id, array(
-        'quantity' => array('relative' => false,'value' => $qtd),
-       ));
-        $produtos = $this->carrinhoFinal();
-        return view('comprar_produto')->with(['produtos' => $produtos]);
+            'quantity' => 1,
+        ));
+        return redirect()->route('carrinho');
     }
     
     public function removerprod($id){
         Cart::session(Auth::user()->cliente->idCliente)->remove($id);
-        $produtos = $this->carrinhoFinal();
-        return view('comprar_produto')->with(['produtos' => $produtos]);
+        return redirect()->route('carrinho');
     }
     
     public function limparCar(){
         Cart::session(Auth::user()->cliente->idCliente)->clear();
-        $produtos = $this->carrinhoFinal();
-        return view('comprar_produto')->with(['produtos' => $produtos]);
+        return redirect()->route('carrinho');
 }
 
+    public function comprarProdutos($idprods){
+        $idps = explode(",",$idprods);
+        foreach($idps as $id){
+            $this->destroy($id);
+        }
+        Cart::session(Auth::user()->cliente->idCliente)->clear();
+        return redirect()->route('carrinho');
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -266,8 +276,11 @@ class ProdutoController extends Controller
     public function destroy($id)
     {
         $produto = Produto::where('idProduto',$id)->first();
-        $produto->cliente()->detach();
-        $produto->delete();
+        if($produto != null){
+            File::delete('Imagens/'.$produto->foto);
+            $produto->cliente()->detach();
+            $produto->delete();
+        }
         return back()->with('message', 'Produto deletado efetuado!');
     }
     

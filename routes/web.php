@@ -51,7 +51,11 @@ Route::get('/limparCar','ProdutoController@limparCar')->name('limparCar');
 
 Route::get('/removerP/{idP}','ProdutoController@removerprod')->name('removerP');
 
-Route::get('/alterarQ/id/{idP}/qtd/{qtd}','ProdutoController@alterarqtd')->name('alterarQ');
+Route::get('/diminuirQ/{idP}','ProdutoController@diminuirQtd')->name('diminuirQ');
+
+Route::get('/aumentarQ/{idP}','ProdutoController@aumentarQtd')->name('aumentarQ');
+
+Route::get('/comprarP/{array}','ProdutoController@comprarProdutos')->name('comprarP');
 
 Route::resource('gamer','GamerController');
 

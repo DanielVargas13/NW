@@ -72,38 +72,42 @@
 
     <!-- Produtos -->
     <h1 class="ralewayFont center"> Meus Produtos </h1>
-
+    
     <div class="container">
         <div class="row">
             @foreach($produtos as $prod)
             <div class="col s4 m4 l4">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{ URL::asset('Imagens/'.$prod->foto)}}">
-                            <a href="{{route('deletar', $prod->idProduto)}}"><button class="btn-floating red" type="button" onclick="return confirm('Confirma exclusão?')" style="background-color: #fff"><i class="material-icons"> close </i></button></a>
-                         <a href="{{route('produto.edit', $prod->idProduto)}}"><button class="btn-floating blue" type="button" onclick=""><i class="material-icons"> edit </i></button></a>
+                        <br>
+                        <img src="{{ URL::asset('Imagens/'.$prod->foto)}}" style="height: 300px;">                        
                     </div>
+                    <br>
+                    <div class="divider"></div>
+
                     <div class="card-content">
                         @if ($prod->tiponegocio == "Venda")
-                            <span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$prod->tipo->nome}} - {{$prod->nome}} - {{$prod->tiponegocio}} - R$ {{$prod->preco}} </span>
+                            <span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$prod->nome}} - {{$prod->tiponegocio}} - R$ {{$prod->preco}} </span>
                         @else
-                            <span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$prod->tipo->nome}} - {{$prod->nome}} - {{$prod->tiponegocio}} </span>
+                            <span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$prod->nome}} - {{$prod->tiponegocio}} </span>
                         @endif
                         @foreach($prod->cliente as $cliente)
-                        <span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$cliente->pivot->situacao}}</span>
+                        <span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> <b>{{$cliente->pivot->situacao}}</b> </span>
                         @endforeach
                         <span class="card-title activator center">
-                        <a href="{{route('suspender', $prod->idProduto)}}"><button class="btn red waves-effect waves-red darken-3 center" type="button" onclick=""> Suspender <i class="material-icons right"> close </i></button></a>
-                         <a href="{{route('anunciar', $prod->idProduto)}}"><button class="btn green waves-effect waves-green darken-3 center" type="button" onclick=""> Anunciar <i class="material-icons right"> check </i></button></a>
-                        </span>
+                            <a href="{{route('suspender', $prod->idProduto)}}"><button class="btn red waves-effect waves-red darken-3 center" type="button" onclick=""> Suspender <i class="material-icons right"> close </i></button></a>
+                            <a href="{{route('anunciar', $prod->idProduto)}}"><button class="btn green waves-effect waves-green darken-3 center" type="button" onclick=""> Anunciar <i class="material-icons right"> check </i></button></a><br><br>
+                            <a href="{{route('deletar', $prod->idProduto)}}"><button class="btn red waves-effect waves-red darken-3 center" type="button" onclick="return confirm('Confirma exclusão?')" style="background-color: #fff"> Excluir <i class="material-icons"> close </i></button></a>
+                            <a href="{{route('produto.edit', $prod->idProduto)}}"><button class="btn green waves-effect waves-green darken-3 center" type="button" onclick=""> Alterar <i class="material-icons"> edit </i></button></a>   
+                        </span>                        
                     </div>
                 </div>
             </div>
-            @endforeach
+          @endforeach  
         </div>
     </div>
 
-
+    
 
     <!-- JQUERY MATERIALZE-->
     <!-- Jquery-->

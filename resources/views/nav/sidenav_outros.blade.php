@@ -8,11 +8,11 @@
             <label>
                 <input name="status[]" value="Novo" type="checkbox" class="filled-in" />
                 <span class="center textoSideNav"> Novo </span>
-            </label>
+            </label><br>
             <label>
                 <input name="status[]" value="Seminovo" type="checkbox" class="filled-in" />
                 <span class="center textoSideNav"> Seminovo </span>
-            </label>
+            </label><br>
             <label>
                 <input name="status[]" value="Usado" type="checkbox" class="filled-in" />
                 <span class="center textoSideNav"> Usado </span>
@@ -24,7 +24,7 @@
             <label>
                 <input value="0" class="with-gap" name="preco" type="radio" />
                 <span>Menor Preço</span>
-            </label>
+            </label><br>
             <label>
                 <input value="1" class="with-gap" name="preco" type="radio" />
                 <span>Maior Preço</span>
@@ -34,7 +34,7 @@
 
             <br><br>
 
-            <button id="filtrar" class="btn waves-effect waves-light ralewayFont modal-trigger corbtn" type="submit"><i class="material-icons right"> search </i> Fazer Busca </button>
+            <button id="filtrar" class="btn waves-effect waves-light ralewayFont modal-trigger corBtn" type="submit"><i class="material-icons right"> search </i> Fazer Busca </button>
 
         </form>
     </div>

@@ -77,10 +77,8 @@
             if(negocio.value == 'Troca'){
                 div.hidden = true;
                 preco.value = 0;
-                preco.disabled = true;
             }else{
                 div.hidden = false;
-                preco.disabled = false;
             }
         }
     </script>

@@ -98,7 +98,7 @@
                     </div>
                     <div class="row">
                         <div class="center">
-                            <button class="btn-large modal-trigger corBtn ralewayFont" type="submit">
+                            <button class="btn-large modal-trigger waves-effect waves-light corBtn ralewayFont" type="submit">
                                 Cadastrar
                             </button>
                         </div>
@@ -136,7 +136,7 @@
                     </div>
                     <div class="row">
                         <div class="center">
-                            <button class="btn-large modal-trigger corBtn ralewayFont" type="submit">
+                             <button class="btn-large modal-trigger waves-effect waves-light corBtn ralewayFont" type="submit">
                                 Logar
                             </button>
                         </div>

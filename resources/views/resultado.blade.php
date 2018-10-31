@@ -49,9 +49,14 @@
         }
         
         .textoSideNav{
-        color: black;
-        font-family: 'Raleway';
-        font-size: 18px !important;
+            color: black;
+            font-family: 'Raleway';
+            font-size: 18px !important;
+        }
+        
+        /* Cor preta dos botões */
+        .corBtn{
+            background: #323A45;   
         }
 
     </style>
@@ -85,26 +90,31 @@
     @else
         @include('nav.sidenav_resto')
     @endif
+    
+    <br><br><br>
 <!-- Exibe produtos do E-Commerce -->
-<div class="container">
-        <div id="resultado" class="row">
+    <div class="container">
+        <div class="row">
             @foreach($produtos as $prod)
             <div class="col s4 m4 l4">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{ URL::asset('Imagens/'.$prod->foto)}}">
+                        <br>
+                        <img src="{{ URL::asset('Imagens/'.$prod->foto)}}" style="height: 230px;">
                     </div>
+                    <br>
+                    <div class="divider"></div>
                     <div class="card-content">
                          @if ($prod->tiponegocio == "Venda")
-                            <span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$prod->tipo->nome}} - {{$prod->nome}} - {{$prod->tiponegocio}} - R$ {{$prod->preco}} </span>
+                            <span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$prod->nome}} - {{$prod->tiponegocio}} - R$ {{$prod->preco}} </span>
                         @else
-                            <span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$prod->tipo->nome}} - {{$prod->nome}} - {{$prod->tiponegocio}} </span>
+                            <span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$prod->nome}} - {{$prod->tiponegocio}} </span>
                         @endif
                         @foreach($prod->cliente as $cliente)
                         <span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$cliente->gamer->nome}}</span>
                         @endforeach
                          <span class="card-title activator center">
-                        <a href="{{route('produto.show',$prod->idProduto)}}"><button class="btn blue waves-effect waves-blue darken-3 center" type="button" onclick=""> Comprar <i class="material-icons right"> add_shopping_cart </i></button></a>
+                        <a href="{{route('produto.show',$prod->idProduto)}}"><button class="btn corBtn waves-effect waves-blue darken-3 center modal-trigger" type="button" onclick=""> Ver Produto <i class="material-icons right"> launch </i></button></a>
                         </span>
                     </div>
                 </div>

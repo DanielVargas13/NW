@@ -55,6 +55,9 @@
             font-weight: bold;
         }
         
+         .corBtn{
+            background: #323A45;
+        }
     </style>
     
     </head>
@@ -88,14 +91,14 @@
                         <td>  
                             <div class="row">
                                 <div class="input-field col s4 m4 l4">
-                                    <select>
-                                        <option value="1" selected> 1 Unidade </option>
-                                        <option value="2"> 2 Unidades </option>
-                                        <option value="3"> 3 Unidades </option>
-                                        <option value="4"> 4 Unidades </option>
-                                        <option value="5"> 5 Unidades </option>
-                                    </select>
+                                    <b> Quantidade: </b>{{$qtd[$prod->idProduto]}}
                               </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s4 m4 l4">
+                                    <a href="{{route('diminuirQ',$prod->idProduto)}}" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">remove</i></a>
+                                    <a href="{{route('aumentarQ',$prod->idProduto)}}" class="btn-floating btn-small waves-effect waves-light blue"><i class="material-icons">add</i></a>
+                                </div>
                             </div>
                             <div class="row"> 
                                 <div class="input-field col s4 m4 l4 center">
@@ -127,8 +130,11 @@
         <div class="row">
             <div class="container">
                 <div class="col s6 m6 l6 offset-s4 offset-m4 offset-l4">
-                <a href="{{route('limparCar')}}" class="waves-effect waves-light btn-large red"><i class="material-icons left"> close </i> Cancelar Compra </a>
-                <a class="waves-effect waves-light btn-large green pulse"><i class="material-icons right"> attach_money </i> Comprar Produtos </a>
+                <a href="{{route('limparCar')}}" class= "waves-effect waves-light btn-large red"><i class="material-icons left"> close </i> Cancelar Compra </a>
+                    @php
+                        $idprods = implode(",",$idps);
+                    @endphp
+                <a href="{{route('comprarP', $idprods)}}" class="waves-effect waves-light btn-large green"><i class="material-icons right"> attach_money </i> Comprar Produtos </a>
                 </div>
             </div>           
         </div>
