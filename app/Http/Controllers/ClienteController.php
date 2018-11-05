@@ -69,7 +69,8 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        
+        $cliente = Cliente::where('idCliente',$id)->first();   
+        return $cliente;
     }
 
     public function acessoCP($id){

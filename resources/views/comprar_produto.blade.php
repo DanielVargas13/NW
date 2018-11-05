@@ -94,12 +94,6 @@
                                     <b> Quantidade: </b>{{$qtd[$prod->idProduto]}}
                               </div>
                             </div>
-                            <div class="row">
-                                <div class="input-field col s4 m4 l4">
-                                    <a href="{{route('diminuirQ',$prod->idProduto)}}" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">remove</i></a>
-                                    <a href="{{route('aumentarQ',$prod->idProduto)}}" class="btn-floating btn-small waves-effect waves-light blue"><i class="material-icons">add</i></a>
-                                </div>
-                            </div>
                             <div class="row"> 
                                 <div class="input-field col s4 m4 l4 center">
                                     <a href="{{route('removerP',$prod->idProduto)}}" class="ralewayFont red-text"> Remover </a>

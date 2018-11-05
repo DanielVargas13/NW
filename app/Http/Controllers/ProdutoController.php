@@ -24,6 +24,15 @@ class ProdutoController extends Controller
         return view('delete_produto')->with(['produtos' => $produtos]);   
     }
     
+     public function paginaVendedor($id)
+    {
+        $produtos = Produto::whereHas('cliente',function($query) use($id){
+            $query->where('anuncio.idCliente',$id);
+        })->get();
+         $cliente = app('App\Http\Controllers\ClienteController')->show($id);
+        return view('perfil_vendedor')->with(['produtos' => $produtos,'cliente' => $cliente]);   
+    }
+    
     public function ecommerce()
     {
         $produtos = Produto::whereHas('cliente',function($query){
@@ -228,25 +237,6 @@ class ProdutoController extends Controller
         }
         $produtos = Produto::whereIn('idProduto',$idprods)->get();
         return view('comprar_produto')->with(['produtos' => $produtos,'qtd' => $qtdprods,'idps' => $idprods]);
-    }
-    
-    public function diminuirQtd($id){
-        $item = Cart::session(Auth::user()->cliente->idCliente)->get($id);
-        if($item->quantity != 1){
-            Cart::session(Auth::user()->cliente->idCliente)->update($id, array(
-                'quantity' => -1,
-            ));
-            return redirect()->route('carrinho');
-        }else{
-            return back();
-        }
-    }
-    
-    public function aumentarQtd($id){
-       Cart::session(Auth::user()->cliente->idCliente)->update($id, array(
-            'quantity' => 1,
-        ));
-        return redirect()->route('carrinho');
     }
     
     public function removerprod($id){

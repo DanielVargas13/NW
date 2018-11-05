@@ -11,16 +11,15 @@
         <!-- IMPORT MATERIALIZE -->
         <!--Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+   <!-- Materialize CSS-->
+    <link rel="stylesheet" href="{{ URL::asset('css/materialize.min.css')}}">
             
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Bitter|Playfair+Display" rel="stylesheet">
-
+<!-- Se remover isso vai parar de funcionar -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+        
         <style>
             /* Fonte */
             .ralewayFont {
@@ -49,10 +48,10 @@
     </head>
 
     <body>
+        @include('nav.navbar')
         
-        <?php require_once('nav/navbar.php')?>
-        <?php require_once('nav/sidenav.php')?>
-        <!-- @include('nav.navbar') -->
+        <!-- Side Nav -->
+     @include('nav.sidenav')
 
         <!-- COMPLETE CONTENT -->
         <div class="container white z-depth-2" style="display: table;">
@@ -65,10 +64,11 @@
             <!-- FOTO+DADOS -->
             <div class="row" style=" margin-left: 5em; margin-top: -12em; position: absolute;">
                 <div class="left FOTO_PERFIL blue" style="width: 15em; height: 20em; border-style: solid">
-                    <img class="z-depth-5" src="https://bistury.files.wordpress.com/2013/01/lula.jpg?w=1000" alt="" style="width: 100%; height: 100%;">
+                    <img class="z-depth-5" src="{{ URL::asset('Imagens/'.$cliente->foto)}}" alt="" style="width: 100%; height: 100%;">
                 </div>
 
                 <div class="dados col offset-m5 white right">
+                    {{$cliente->gamer->nome}}
                 </div>
             </div>
 
@@ -76,19 +76,48 @@
             <div class="CONTENT container white row" style="height: 35em; margin-top: 2em">
 
                 <div class="ABOUT col m12 offset-m2 white">
-                    <h2 style="border-bottom: 0.04em solid green">Sobre</h2>
-                
+                    <h2 style="border-bottom: 0.04em solid green">Produtos</h2>
+                    <div class="container">
+        <div class="row">
+            @foreach($produtos as $prod)
+            <div class="col s4 m4 l4">
+                <div class="card">
+                    <div class="card-image">
+                        <br>
+                        <img src="{{ URL::asset('Imagens/'.$prod->foto)}}" style="height: 230px;">
+                    </div>
+                    <br>
+                    <div class="divider"></div>
+                    <div class="card-content">
+                         @if ($prod->tiponegocio == "Venda")
+                            <span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$prod->nome}} - {{$prod->tiponegocio}} - R$ {{$prod->preco}} </span>
+                        @else
+                            <span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$prod->nome}} - {{$prod->tiponegocio}} </span>
+                        @endif
+                         <span class="card-title activator center">
+                        <a href="{{route('produto.show',$prod->idProduto)}}"><button class="btn corBtn waves-effect waves-blue darken-3 center modal-trigger" type="button" onclick=""> Ver Produto <i class="material-icons right"> launch </i></button></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
                 </div>
                     
             </div>
         </div>
 
-
+<div id='app-js' hashkey='A75312THG10$I21389#'>
+        <!-- <p>Made with love by Brian and Daniel</p> -->
+    </div>
 
     <!-- JQUERY MATERIALZE-->
     <!-- Jquery-->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
+   <!--Materialize JS-->
+    <script src="{{ URL::asset('js/materialize.min.js')}}"></script>
+        
     <!-- Script SideNav -->
     <script>
         $(document).ready(function() {

@@ -57,6 +57,8 @@ Route::get('/aumentarQ/{idP}','ProdutoController@aumentarQtd')->name('aumentarQ'
 
 Route::get('/comprarP/{array}','ProdutoController@comprarProdutos')->name('comprarP');
 
+Route::get('/paginaV/{idV}','ProdutoController@paginaVendedor')->name('paginaV');
+
 Route::resource('gamer','GamerController');
 
 Route::resource('produto','ProdutoController');
