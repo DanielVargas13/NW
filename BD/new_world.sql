@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 25-Out-2018 às 23:51
+-- Generation Time: 07-Nov-2018 às 14:36
 -- Versão do servidor: 10.1.35-MariaDB
 -- versão do PHP: 7.2.9
 
@@ -22,9 +22,6 @@ SET time_zone = "+00:00";
 -- Database: `new_world`
 --
 
-CREATE DATABASE new_world;
-
-USE new_world;
 -- --------------------------------------------------------
 
 --
@@ -44,9 +41,7 @@ CREATE TABLE `anuncio` (
 --
 
 INSERT INTO `anuncio` (`dataInicio`, `dataFim`, `situacao`, `idCliente`, `idProduto`) VALUES
-('2018-10-09', '2018-10-30', 'Ativo', 3, 3),
 ('2018-10-17', '2018-10-31', 'Ativo', 3, 4),
-(NULL, NULL, 'Ativo', 3, 5),
 (NULL, NULL, 'Ativo', 3, 6);
 
 -- --------------------------------------------------------
@@ -212,7 +207,6 @@ CREATE TABLE `produto` (
   `descricao` varchar(200) NOT NULL,
   `tiponegocio` varchar(40) NOT NULL,
   `preco` double UNSIGNED DEFAULT NULL,
-  `taxa` double UNSIGNED DEFAULT NULL,
   `status` varchar(40) NOT NULL,
   `foto` varchar(255) NOT NULL,
   `categoria` varchar(120) DEFAULT NULL,
@@ -225,11 +219,9 @@ CREATE TABLE `produto` (
 -- Extraindo dados da tabela `produto`
 --
 
-INSERT INTO `produto` (`idProduto`, `nome`, `descricao`, `tiponegocio`, `preco`, `taxa`, `status`, `foto`, `categoria`, `idTipoProduto`, `updated_at`, `created_at`) VALUES
-(3, 'WarGod', 'Um jogo incrivel de ação, aventura, emoção e magia.', 'Venda', 100, 5, 'am', '1539122306.png', '', 3, '2018-10-09 21:58:26', '2018-10-09 21:58:26'),
-(4, 'Dota', 'Moba desenvolvido pela Valve', 'Troca', 286, 14.3, 'seminovo', '1539786661.jpg', '', 3, '2018-10-17 14:31:01', '2018-10-17 14:31:01'),
-(5, 'Dead Cells', 'Um jogo rogue-like que desafia seus reflexos e habilidades ao máximo.', 'Troca', NULL, 0, 'Novo', '1540289787.jpg', '', 3, '2018-10-23 10:16:27', '2018-10-23 10:16:27'),
-(6, 'BetaNet', 'Black betty had a job, the damn thing gonne wild', 'Troca', NULL, 0, 'Seminovo', '1540341878.jpg', NULL, 3, '2018-10-24 00:44:38', '2018-10-24 00:44:38');
+INSERT INTO `produto` (`idProduto`, `nome`, `descricao`, `tiponegocio`, `preco`, `status`, `foto`, `categoria`, `idTipoProduto`, `updated_at`, `created_at`) VALUES
+(4, 'Dota', 'Moba desenvolvido pela Valve', 'Venda', 286, 'seminovo', '1539786661.jpg', '', 3, '2018-10-17 14:31:01', '2018-10-17 14:31:01'),
+(6, 'BetaNet', 'Black betty had a job, the damn thing gonne wild', 'Troca', 0, 'Seminovo', '1540341878.jpg', NULL, 3, '2018-10-24 00:44:38', '2018-10-24 00:44:38');
 
 -- --------------------------------------------------------
 
@@ -388,7 +380,7 @@ ALTER TABLE `produto`
 -- AUTO_INCREMENT for table `tipoproduto`
 --
 ALTER TABLE `tipoproduto`
-  MODIFY `idTipo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idTipo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables

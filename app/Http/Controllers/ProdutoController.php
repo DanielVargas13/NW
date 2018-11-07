@@ -64,8 +64,10 @@ class ProdutoController extends Controller
         $produto->nome = $request->nome;
         $produto->descricao = $request->descricao;
         $produto->tiponegocio = $request->tiponegocio;
-        $produto->preco = $request->preco;
-        $produto->taxa = $request->preco*0.05;
+        $p = $request->preco;
+        $t = $request->preco*0.05;
+        $p = $p + $t;
+        $produto->preco = $p;
         $produto->status = $request->status;
         
         //Upload de imagem
@@ -198,8 +200,10 @@ class ProdutoController extends Controller
         $produto->nome = $request->nome;
         $produto->descricao = $request->descricao;
         $produto->tiponegocio = $request->tiponegocio;
-        $produto->preco = $request->preco;
-        $produto->taxa = $request->preco*0.05;
+         $p = $request->preco;
+        $t = $request->preco*0.05;
+        $p = $p + $t;
+        $produto->preco = $p;
         $produto->status = $request->status;
         
         if($request->foto != null){
@@ -219,12 +223,6 @@ class ProdutoController extends Controller
         $produto = Produto::where('idProduto',$id)->firstOrFail();
         Cart::session(Auth::user()->cliente->idCliente)->add($produto->idProduto,$produto->nome,$produto->preco,1,array());
         return back()->with('message', 'Produto adicionado');
-    }
-    
-    public function addcarrinhoFinal($id){
-        $produto = Produto::where('idProduto',$id)->firstOrFail();
-        Cart::session(Auth::user()->cliente->idCliente)->add($produto->idProduto,$produto->nome,$produto->preco,1,array());
-        return redirect()->route('carrinho');
     }
     
     public function carrinho(){

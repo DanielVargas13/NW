@@ -43,17 +43,11 @@ Route::get('/deletar/{idP}','ProdutoController@destroy')->name('deletar');
 
 Route::get('/adicionar/{idP}','ProdutoController@addcarrinho')->name('adicionar');
 
-Route::get('/adicionarCar/{idP}','ProdutoController@addcarrinhoFinal')->name('adicionarCar');
-
 Route::get('/carrinho','ProdutoController@carrinho')->name('carrinho');
 
 Route::get('/limparCar','ProdutoController@limparCar')->name('limparCar');
 
 Route::get('/removerP/{idP}','ProdutoController@removerprod')->name('removerP');
-
-Route::get('/diminuirQ/{idP}','ProdutoController@diminuirQtd')->name('diminuirQ');
-
-Route::get('/aumentarQ/{idP}','ProdutoController@aumentarQtd')->name('aumentarQ');
 
 Route::get('/comprarP/{array}','ProdutoController@comprarProdutos')->name('comprarP');
 
