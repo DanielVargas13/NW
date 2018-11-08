@@ -20,4 +20,14 @@ class Cliente extends Model
     {
         return $this->belongsToMany('App\Produto','anuncio','idCliente','idProduto')->withPivot('dataInicio','dataFim','situacao');
     }
+    
+     public function avaliado()
+    {
+        return $this->hasMany('App\Avaliacao','idCliente','idCliente');
+    }
+    
+     public function avaliador()
+    {
+        return $this->hasMany('App\Avaliacao','idAvaliador','idCliente');
+    }
 }

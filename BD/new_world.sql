@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 07-Nov-2018 às 14:36
+-- Generation Time: 09-Nov-2018 às 00:24
 -- Versão do servidor: 10.1.35-MariaDB
 -- versão do PHP: 7.2.9
 
@@ -22,6 +22,8 @@ SET time_zone = "+00:00";
 -- Database: `new_world`
 --
 
+CREATE DATABASE new_world;
+USE new_world;
 -- --------------------------------------------------------
 
 --
@@ -29,8 +31,6 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `anuncio` (
-  `dataInicio` date DEFAULT NULL,
-  `dataFim` date DEFAULT NULL,
   `situacao` varchar(40) NOT NULL,
   `idCliente` int(10) UNSIGNED NOT NULL,
   `idProduto` int(10) UNSIGNED NOT NULL
@@ -40,23 +40,9 @@ CREATE TABLE `anuncio` (
 -- Extraindo dados da tabela `anuncio`
 --
 
-INSERT INTO `anuncio` (`dataInicio`, `dataFim`, `situacao`, `idCliente`, `idProduto`) VALUES
-('2018-10-17', '2018-10-31', 'Ativo', 3, 4),
-(NULL, NULL, 'Ativo', 3, 6);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `ator`
---
-
-CREATE TABLE `ator` (
-  `idAtor` int(10) UNSIGNED NOT NULL,
-  `nome` varchar(60) NOT NULL,
-  `foto` varchar(255) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `anuncio` (`situacao`, `idCliente`, `idProduto`) VALUES
+('Ativo', 3, 4),
+('Ativo', 3, 6);
 
 -- --------------------------------------------------------
 
@@ -68,8 +54,8 @@ CREATE TABLE `avaliacao` (
   `idAvaliacao` int(10) UNSIGNED NOT NULL,
   `pontos` int(10) UNSIGNED NOT NULL,
   `comentario` varchar(255) NOT NULL,
-  `idJogo` int(10) UNSIGNED NOT NULL,
   `idCliente` int(10) UNSIGNED NOT NULL,
+    `idAvaliador` int(10) UNSIGNED NOT NULL,
   `updated_at` datetime NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -107,17 +93,6 @@ INSERT INTO `cliente` (`idCliente`, `nick`, `telefone`, `rua`, `numero`, `bairro
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `gameografia`
---
-
-CREATE TABLE `gameografia` (
-  `idJogo` int(10) UNSIGNED NOT NULL,
-  `idAtor` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `gamer`
 --
 
@@ -138,43 +113,6 @@ CREATE TABLE `gamer` (
 INSERT INTO `gamer` (`idGamer`, `nome`, `email`, `senha`, `remember_token`, `created_at`, `updated_at`) VALUES
 (7, 'Daniel Vargas', 'megustagames33@gmail.com', '12345678', 'W2yqjRXsONJOfsJKOO07S2L41ZkuUQD4UtMHZAmxdO1uw79W5PMokpfGXHLT', '2018-10-09 22:02:59', '2018-10-09 22:02:59'),
 (8, 'Fernando Jean', 'megustagames331@gmail.com', '12345678', NULL, '2018-10-26 00:46:59', '2018-10-26 00:46:59');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `jogo`
---
-
-CREATE TABLE `jogo` (
-  `idJogo` int(10) UNSIGNED NOT NULL,
-  `nome` varchar(60) NOT NULL,
-  `genero` varchar(30) NOT NULL,
-  `plataforma` varchar(30) NOT NULL,
-  `descricao` varchar(255) NOT NULL,
-  `dataLancamento` date NOT NULL,
-  `foto` varchar(255) NOT NULL,
-  `video` varchar(255) NOT NULL,
-  `desenvolvedora` varchar(30) NOT NULL,
-  `modoJogo` varchar(60) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `livestream`
---
-
-CREATE TABLE `livestream` (
-  `idLivestream` int(10) UNSIGNED NOT NULL,
-  `titulo` varchar(60) NOT NULL,
-  `streamer` varchar(60) NOT NULL,
-  `transmissao` varchar(255) NOT NULL,
-  `idJogo` int(10) UNSIGNED NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -258,17 +196,10 @@ ALTER TABLE `anuncio`
   ADD KEY `idProduto` (`idProduto`);
 
 --
--- Indexes for table `ator`
---
-ALTER TABLE `ator`
-  ADD PRIMARY KEY (`idAtor`);
-
---
 -- Indexes for table `avaliacao`
 --
 ALTER TABLE `avaliacao`
   ADD PRIMARY KEY (`idAvaliacao`),
-  ADD KEY `idJogo` (`idJogo`),
   ADD KEY `idCliente` (`idCliente`);
 
 --
@@ -279,31 +210,10 @@ ALTER TABLE `cliente`
   ADD KEY `idGamer` (`idGamer`);
 
 --
--- Indexes for table `gameografia`
---
-ALTER TABLE `gameografia`
-  ADD PRIMARY KEY (`idJogo`,`idAtor`),
-  ADD KEY `idJogo` (`idJogo`),
-  ADD KEY `idAtor` (`idAtor`);
-
---
 -- Indexes for table `gamer`
 --
 ALTER TABLE `gamer`
   ADD PRIMARY KEY (`idGamer`);
-
---
--- Indexes for table `jogo`
---
-ALTER TABLE `jogo`
-  ADD PRIMARY KEY (`idJogo`);
-
---
--- Indexes for table `livestream`
---
-ALTER TABLE `livestream`
-  ADD PRIMARY KEY (`idLivestream`),
-  ADD KEY `idJogo` (`idJogo`);
 
 --
 -- Indexes for table `migrations`
@@ -329,12 +239,6 @@ ALTER TABLE `tipoproduto`
 --
 
 --
--- AUTO_INCREMENT for table `ator`
---
-ALTER TABLE `ator`
-  MODIFY `idAtor` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `avaliacao`
 --
 ALTER TABLE `avaliacao`
@@ -351,18 +255,6 @@ ALTER TABLE `cliente`
 --
 ALTER TABLE `gamer`
   MODIFY `idGamer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `jogo`
---
-ALTER TABLE `jogo`
-  MODIFY `idJogo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `livestream`
---
-ALTER TABLE `livestream`
-  MODIFY `idLivestream` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -397,7 +289,7 @@ ALTER TABLE `anuncio`
 -- Limitadores para a tabela `avaliacao`
 --
 ALTER TABLE `avaliacao`
-  ADD CONSTRAINT `avaliacao_ibfk_1` FOREIGN KEY (`idJogo`) REFERENCES `jogo` (`idJogo`),
+ADD CONSTRAINT `avaliacao_ibfk_1` FOREIGN KEY (`idAvaliador`) REFERENCES `cliente` (`idCliente`),
   ADD CONSTRAINT `avaliacao_ibfk_2` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`);
 
 --
@@ -405,19 +297,6 @@ ALTER TABLE `avaliacao`
 --
 ALTER TABLE `cliente`
   ADD CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`idGamer`) REFERENCES `gamer` (`idGamer`);
-
---
--- Limitadores para a tabela `gameografia`
---
-ALTER TABLE `gameografia`
-  ADD CONSTRAINT `gameografia_ibfk_1` FOREIGN KEY (`idJogo`) REFERENCES `jogo` (`idJogo`),
-  ADD CONSTRAINT `gameografia_ibfk_2` FOREIGN KEY (`idAtor`) REFERENCES `ator` (`idAtor`);
-
---
--- Limitadores para a tabela `livestream`
---
-ALTER TABLE `livestream`
-  ADD CONSTRAINT `livestream_ibfk_1` FOREIGN KEY (`idJogo`) REFERENCES `jogo` (`idJogo`);
 
 --
 -- Limitadores para a tabela `produto`
