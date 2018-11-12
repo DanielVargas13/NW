@@ -18,6 +18,6 @@ class Produto extends Model
     
     public function cliente()
     {
-        return $this->belongsToMany('App\Cliente','anuncio','idProduto','idCliente')->withPivot('dataInicio','dataFim','situacao');
+        return $this->belongsToMany('App\Cliente','anuncio','idProduto','idCliente')->withPivot('situacao');
     }
 }

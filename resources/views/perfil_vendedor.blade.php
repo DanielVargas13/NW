@@ -1,85 +1,301 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+
+<html>
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Perfil ?username? - Fênix</title>
-        <!-- Logo na Aba do Navegador -->
-        <link rel="shortcut icon" href="{{ URL::asset('Imagens/LogoPNG2.png')}}" >  
+        <title> New World - Avaliação Vendedor </title>
 
-        <!-- IMPORT MATERIALIZE -->
-        <!--Google Icon Font-->
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <meta charset="UTF-8">
+    <!--Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-   <!-- Materialize CSS-->
+    <!-- Materialize CSS-->
     <link rel="stylesheet" href="{{ URL::asset('css/materialize.min.css')}}">
-            
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Bitter|Playfair+Display" rel="stylesheet">
-<!-- Se remover isso vai parar de funcionar -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <!-- BOOTSTRAP & JQUERY PLUGIN AVALIAÇÃO -->
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <style>
+    
+        .fontes{
+            font-family: 'Raleway';
+        }
         
-        <style>
-            /* Fonte */
-            .ralewayFont {
-                font-family: 'Raleway';
-            }
+        .nome{
+            font-size: 20px;
+        }
 
-            /* Tamanho do Modal */
-            .modal {
-                width: 40% !important;
-                max-height: 100%;
-            }
+        /* SVG PARA MOSTRAR RESULTADO DA AVALIAÇÃO */
+        .flex-wrapper {
+            display: flex;
+            flex-flow: row nowrap;
+        }
 
-            /*MouseOver para alterar cor dos botões*/
-            .modal-trigger:hover {
-                background: #2ecc71;
-            }
-            .altera-cor:hover {
-                background: red;
-            }
+        .single-chart {
+            width: 33%;
+            justify-content: space-around ;
+        }
 
-            body {
-                background-color: #f2f2f2;
-            }
+        .circular-chart {
+            display: block;
+            margin: 10px auto;
+            max-width: 80%;
+            max-height: 250px;
+        }
 
-        </style>
+        .circle-bg {
+            fill: none;
+            stroke: #323A45;
+            stroke-width: 3.8;
+        }
+
+        .circle {
+            fill: none;
+            stroke-width: 2.8;
+            stroke-linecap: round;
+            animation: progress 1s ease-out forwards;
+        }
+
+        @keyframes progress {
+            0% {
+                stroke-dasharray: 0 100;
+            }
+        }
+
+        .circular-chart.orange .circle {
+            stroke: #2ecc71;;
+        }
+
+
+        .percentage {
+            fill: #323A45;
+            font-family: sans-serif;
+            font-size: 0.7em;
+            text-anchor: middle;
+        }   
+
+        .orange{
+            background-color: white !important;
+        }
+        
+        .avaliacao{
+            fill: #2ecc71;
+            font-family: sans-serif;
+            font-size: 0.3em;
+            text-anchor: middle;           
+        }
+        
+        .numAvaliacoes{
+            font-size: 20px;
+        }
+        
+        /* ESTRELAS DE AVALIAÇÃO */
+        .glyphicon-star-empty, .glyphicon-star { 
+            font-size: 32px;
+        }
+        
+        /* Informações Vendedor CARD */
+        .infoVendedor{
+            font-size: 18px;
+        }
+        
+        .infomaVendedor{
+            font-size: 20px;
+        }
+        
+        /* Cor do botão de foto e cadastrar */
+        .corbtn{
+            background: #323A45;
+        }
+        
+        .modal-trigger:hover {
+            background: #2ecc71;
+        }
+        
+        .pegaInfo{
+            color: #2ecc71;
+        }
+        
+        .comentarioNome{
+            font-size: 20px;
+        }
+        
+        .comentarioComent{
+            font-size: 20px;
+        }
+    </style>
+    
     </head>
-
+    
     <body>
-        @include('nav.navbar')
-        
-        <!-- Side Nav -->
+         @include('nav.navbar')
+
+<!-- Side Nav -->
      @include('nav.sidenav')
-
-        <!-- COMPLETE CONTENT -->
-        <div class="container white z-depth-2" style="display: table;">
-
-            <!-- BANNER -->
-            <div class="BANNER col m12" style="width: 100%; height: 20em">
-                <img class=" z-depth-1" src="https://www.noticiasagricolas.com.br/dbimagens/133099bd31e7ebda1b22f84b87be8b17.jpg" alt="" style="width: 100%; height: 20em">
-            </div>
-
-            <!-- FOTO+DADOS -->
-            <div class="row" style=" margin-left: 5em; margin-top: -12em; position: absolute;">
-                <div class="left FOTO_PERFIL blue" style="width: 15em; height: 20em; border-style: solid">
-                    <img class="z-depth-5" src="{{ URL::asset('Imagens/'.$cliente->foto)}}" alt="" style="width: 100%; height: 100%;">
-                </div>
-
-                <div class="dados col offset-m5 white right">
-                    {{$cliente->gamer->nome}}
-                </div>
-            </div>
-
-            <!-- CONTEUDO -->
-            <div class="CONTENT container white row" style="height: 35em; margin-top: 2em">
-
-                <div class="ABOUT col m12 offset-m2 white">
-                    <h2 style="border-bottom: 0.04em solid green">Produtos</h2>
-                    <div class="container">
+        <br><br><br><br>
+        
         <div class="row">
-            @foreach($produtos as $prod)
+            <!-- LADO ESQUERDO -->
+            <div class="col s6 m6 l6">
+                <br><br>
+                <div class="col s5 m5 l5 offset-s5 offset-m5 offset-l5">
+                  <div class="card">
+                    <div class="card-image">
+                      <img src="{{ URL::asset('Imagens/'.$cliente->foto)}}" style="height: 400px;">                 
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title fontes nome"> {{$cliente->gamer->nome}} </span>
+                        <p class="fontes infoVendedor"> <b>Produtos Vendidos:</b> 20 </p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+           
+            <!-- LADO DIREITO -->
+            <div class="col s6 m6 l6">
+                <div class="row">
+                    <div class="col s8 m8 l8 offset-s2 offset-m2 offset-l2">
+                        <div class="flex-wrapper">
+                            <div class="single-chart">
+                                <svg viewBox="0 0 36 36" class="circular-chart orange">
+                                    <path class="circle-bg"
+                                        d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    />
+                                    <path class="circle"
+                                        stroke-dasharray="90, 100"
+                                        d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    />
+                                    <text x="18" y="18.35" class="percentage fontes"> 90 </text>
+                                    <text x="18" y="23.35" class="avaliacao fontes"> Ótimo </text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="col s8 m8 l8 center">
+                        <p class="fontes numAvaliacoes"> Baseado em <b>10</b> avaliações de compradores. </p>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="col s8 m8 l8">
+                        <div class="divider"></div>
+                    </div>
+                    <br>
+                    <div class="col s8 m8 l8 center">
+                        <h3 class="fontes">  Como você classificaria este vendedor? </h3>
+                        <div class="ten">
+                        </div>
+                        <br>
+                    </div>
+                    <div class="col s8 m8 l8">
+                        <div class="divider"></div>
+                                         <br>
+                                                          <br>
+                    </div>
+   
+                    <div class="col s8 m8 l8 center grey lighten-4">      
+                        <form>
+                            <div class="row">
+                                <h3 class="fontes"> Comente sobre este vendedor </h3>
+                                <div class="input-field col s8 m8 l8 offset-s2 offset-m2 offset-l2">
+                                    <i class="material-icons prefix">attach_file</i>
+                                    <textarea id="icon_prefix2" class="materialize-textarea" maxlength="200"></textarea>
+                                    <label for="icon_prefix2"> </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s10 m10 l10">
+                                    <a class="waves-effect waves-light btn corbtn modal-trigger white-text right"> Postar </a>
+                                </div>
+                            </div>
+                        </form>
+                   </div>
+                </div>
+            </div>    
+        </div>
+        
+        <div class="row">
+            <div class="col s10 m10 l10 offset-s1 offset-m1 offset-l1">
+                <div class="divider"></div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col s6 m6 l6 grey lighten-3 offset-s3 offset-m3 offset-l3">
+                <h2 class="fontes center"> <b>Informações do Vendedor</b> </h2> 
+                <br><br>
+                <div class="col s8 m8 l8 offset-s2 offset-m2 offset-l2">
+                    <div class="col s12 m12 l12">
+                        <div class="col s6 m6 l6">
+                            <p class="fontes infomaVendedor"><i class="material-icons prefix"> account_box </i> <b> Nome: </b></p>
+                            <p class="fontes infomaVendedor"> {{$cliente->gamer->nome}} </p>
+                            <br>
+                            <p class="fontes infomaVendedor"><i class="material-icons prefix"> adb </i> <b> Nick: </b></p> 
+                            <p class="fontes infomaVendedor"> {{$cliente->nick}} </p>
+                            <br>
+                        </div>
+                        <div class="col s6 m6 l6">
+                            <p class="fontes infomaVendedor"><i class="material-icons prefix"> email </i> <b> E-mail: </b></p> 
+                            <p class="fontes infomaVendedor"> {{$cliente->gamer->email}} </p>
+                            <br>
+                            <p class="fontes infomaVendedor"><i class="material-icons prefix">phone</i> <b> Telefone Celular: </b></p> 
+                            <p class="fontes infomaVendedor"> {{$cliente->telefone}} </p>
+                            </div>
+                        <br>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <div class="divider"></div>
+                        </div>
+                    </div>
+                    <div class="col s12 m12 l12">
+                        <div class="col s6 m6 l6">
+                            <p class="fontes infomaVendedor"><i class="material-icons prefix"> filter_hdr </i> <b> Estado </b></p> 
+                            <p class="fontes infomaVendedor"> {{$cliente->estado}} </p>
+                            <br>
+                            <p class="fontes infomaVendedor"><i class="material-icons prefix"> location_city </i> <b> Cidade </b></p> 
+                            <p class="fontes infomaVendedor"> {{$cliente->cidade}} </p>
+                            <br>
+                            <p class="fontes infomaVendedor"><i class="material-icons prefix"> nature_people </i> <b> Bairro </b></p>
+                            <p class="fontes infomaVendedor"> {{$cliente->bairro}} </p>
+                            <br>
+                        </div>
+                        <div class="col s6 m6 l6">
+                            <p class="fontes infomaVendedor"><i class="material-icons prefix"> directions </i> <b> Rua </b></p> 
+                            <p class="fontes infomaVendedor"> {{$cliente->rua}} </p>
+                            <br>
+                            <p class="fontes infomaVendedor"><i class="material-icons prefix"> local_convenience_store </i> <b> Número </b></p> 
+                            <p class="fontes infomaVendedor"> {{$cliente->numero}} </p>
+                            <br>
+                            <p class="fontes infomaVendedor"><i class="material-icons prefix"> edit_location </i> <b> CEP </b></p> 
+                            <p class="fontes infomaVendedor"> {{$cliente->cep}} </p>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col s10 m10 l10 offset-s1 offset-m1 offset-l1">
+                <div class="divider"></div>
+            </div>
+        </div>
+        
+        <br><br>
+        
+        <h2 class=" center fontes"> <b> Produtos deste Vendedor </b> </h2>
+        <br>
+        
+        <div class="container">
+            <div class="row">
+                @foreach($produtos as $prod)
             <div class="col s4 m4 l4">
                 <div class="card">
                     <div class="card-image">
@@ -101,51 +317,96 @@
                 </div>
             </div>
             @endforeach
+            </div>
         </div>
-    </div>
+        
+        <div class="row">
+            <div class="col s10 m10 l10 offset-s1 offset-m1 offset-l1">
+                <div class="divider"></div>
+            </div>
+        </div>
+        
+        <br><br>
+        
+        <h2 class=" center fontes"> <b> Comentários Sobre Este Vendedor </b> </h2>
+        <br>
+        <div class="row">
+            <div class="col s6 m6 l6 grey lighten-3 offset-s3 offset-m3 offset-l3">
+                <div class="col s8 m8 l8 offset-s2 offset-m2 offset-l2">
+                    <div class="col s12 m12 l12">
+                        <div class="row">
+                            <br>
+                            <div class="col s8 m8 l8">
+                                <img class="circle" src="Img_Prog/noctis.jpg" style="height: 100px; width: 110px;"> <span class="fontes comentarioNome"> &nbsp;&nbsp;&nbsp;<b> Noctis Lucius Caelum </b> </span>
+                                <br><br>
+                            </div>
+                            <div class="col s12 m12 l12">
+                                <span class="fontes comentarioComent">  Excelente vendedor de jogos, nunca tive problemas.</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12 m12 l12">
+                                <div class="divider"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <br>
+                            <div class="col s8 m8 l8">
+                                <img class="circle" src="Img_Prog/ciri.jpg" style="height: 100px; width: 110px;"> <span class="fontes comentarioNome"> &nbsp;&nbsp;&nbsp;<b> Ciri </b> </span>
+                                <br><br>
+                            </div>
+                            <div class="col s12 m12 l12">
+                                <span class="fontes comentarioComent">  Excelente vendedor, vende ótimos produtos, em ótimo estado, sempre compro e vou comprar com ele.</span>
+                            </div>
+                        </div>   
+                        
+                        <div class="row">
+                            <div class="col s12 m12 l12">
+                                <div class="divider"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <br>
+                            <div class="col s8 m8 l8">
+                                <img class="circle" src="Img_Prog/kratos.jpg" style="height: 100px; width: 110px;"> <span class="fontes comentarioNome"> &nbsp;&nbsp;&nbsp;<b> Kratos </b> </span>
+                                <br><br>
+                            </div>
+                            <div class="col s12 m12 l12">
+                                <span class="fontes comentarioComent">  Péssimo vendedor, os produtos demoram chegar, sempre chegam estragados ou com defeitos, sempre tivep roblemas com ele.</span>
+                            </div>
+                        </div>  
+                    </div>
                 </div>
-                    
             </div>
         </div>
 
-<div id='app-js' hashkey='A75312THG10$I21389#'>
-        <!-- <p>Made with love by Brian and Daniel</p> -->
-    </div>
-
-    <!-- JQUERY MATERIALZE-->
-    <!-- Jquery-->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-   <!--Materialize JS-->
-    <script src="{{ URL::asset('js/materialize.min.js')}}"></script>
+        <!-- Jquery-->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <!--Materialize JS-->
+        <script src="{{ URL::asset('js/materialize.min.js')}}"></script>     
         
-    <!-- Script SideNav -->
-    <script>
-        $(document).ready(function() {
-            $('.sidenav').sidenav();
-            $('.collapsible').collapsible();
-        });
+        <!-- SCRIPT AVALIAÇÃO ESTRELAS -->
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="{{ URL::asset('js/stars.js')}}"></script>
+        <script>
+            $(".ten").stars({emptyIcon: 'glyphicon glyphicon-star-empty',
+                filledIcon: 'glyphicon glyphicon-star',stars: 10, color:'#2ecc71'});
+        </script>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-36251023-1']);
+            _gaq.push(['_setDomainName', 'jqueryscript.net']);
+            _gaq.push(['_trackPageview']);
 
-    </script>
-    <script>
-        $(document).ready(function() {
-            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-            $('.modal').modal();
-            $('.modal').modal('open');
-        });
-
-    </script>
-    
-    <script>
-    $(document).ready(()=>{
-        $('.sidenav').sidenav();
-        $(".dropdown-trigger").dropdown();
-        $('.collapsible').collapsible();
-        // MOBILE ARROW     
-        $('#mob-especialidades').click(()=>{
-            let val = ($('.chevron').html() == 'chevron_right') ? 'keyboard_arrow_down' : 'chevron_right';
-            $('.chevron').html(val)
-        });
-    });
-</script>
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+       
     </body>
 </html>

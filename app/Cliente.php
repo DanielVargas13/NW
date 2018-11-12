@@ -18,7 +18,7 @@ class Cliente extends Model
     
      public function produto()
     {
-        return $this->belongsToMany('App\Produto','anuncio','idCliente','idProduto')->withPivot('dataInicio','dataFim','situacao');
+        return $this->belongsToMany('App\Produto','anuncio','idCliente','idProduto')->withPivot('situacao');
     }
     
      public function avaliado()
