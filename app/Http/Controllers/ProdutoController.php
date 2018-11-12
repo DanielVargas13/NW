@@ -78,7 +78,7 @@ class ProdutoController extends Controller
         $produto->categoria = $request->categoria;
         $produto->idTipoProduto = $request->idTipoProduto;
         $produto->save();
-        $produto->cliente()->attach($request->idCliente,['dataInicio' => $request->dataInicio, 'dataFim' => $request->dataFim, 'situacao' => $request->situacao]);
+        $produto->cliente()->attach($request->idCliente,['situacao' => $request->situacao]);
         return redirect()->route('home')->with('message', 'Cadastro produto efetuado!');
     }
 
