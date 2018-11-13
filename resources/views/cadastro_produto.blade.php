@@ -55,6 +55,31 @@
             background-size: cover;
         }
         
+        /*  BADGE DO CARRINHO*/
+        .notification-badge {
+            position: relative;
+            right: 5px;
+            top: -20px;
+            color: #941e1e;
+            background-color: #f5f1f2;
+            margin: 0 -.8em;
+            border-radius: 50%;
+            padding: 5px 10px;
+        }
+        .notif{
+            position: absolute;
+            left: 0px;
+        }
+        .notification-badge {
+            position:relative;
+            padding:5px 9px;
+            background-color: #2ecc71;
+            color: white;
+            bottom: 15px;
+            left: 5px;
+            border-radius: 50%;
+          }
+        
         
         
         
@@ -158,7 +183,7 @@
                         <div id="divprec" class="row">
                             <div class="input-field col s10 offset-s1 m10 offset-m1 l10 offset-l1">
                                 <i class="material-icons prefix"> attach_money </i>
-                                <input id="preco" name="preco" type="text" class="active validate" required placeholder="R$ XXX,YY">
+                                <input id="preco" name="preco" type="text" class="active validate" required placeholder="999,99">
                               <label for="preco"> Preço </label>
                             </div>
                         </div>

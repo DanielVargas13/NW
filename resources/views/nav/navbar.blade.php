@@ -5,6 +5,11 @@
                 <li><a href="{{ route('home') }}"><img src="{{URL::asset('Imagens/LogoPNG2.png')}}" style="height: 50px; width: 50px; margin-top:9px;"></a></li>
                 <li class="ralewayFont"><a href="{{ route('home') }}" class="waves-effect waves-light modal-trigger">New World</a></li>
                 <li class="left"><a class="sidenav-trigger waves-effect waves-light show-on-large modal-trigger" data-target="slide-out"><i class="material-icons">menu</i></a></li>
+<<<<<<< HEAD
+                <li class="right ralewayFont"><a href="{{route('logout')}}" class="waves-effect waves-light modal-trigger"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+                <li class="right ralewayFont"><a href="{{route('carrinho')}}" data-activates="notificarion" class="waves-effect waves-light modal-trigger"><i class="material-icons left notif">shopping_cart</i><small class="notification-badge"> 2 </small>  </a></li>
+=======
+>>>>>>> f47c3453ca2181a6c9097151fa5d8ef9121b4a8c
 
                 <li class="center" style="margin-left: 18em; height: 64px; width: 65%;position: absolute">
                     <form method="GET" action="{{route('search')}}">

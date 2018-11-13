@@ -52,6 +52,48 @@
             background: #323A45;   
         }
         
+        /*  BADGE DO CARRINHO*/
+        .notification-badge {
+            position: relative;
+            right: 5px;
+            top: -20px;
+            color: #941e1e;
+            background-color: #f5f1f2;
+            margin: 0 -.8em;
+            border-radius: 50%;
+            padding: 5px 10px;
+        }
+        .notif{
+            position: absolute;
+            left: 0px;
+        }
+        .notification-badge {
+            position:relative;
+            padding:5px 9px;
+            background-color: #2ecc71;
+            color: white;
+            bottom: 15px;
+            left: 5px;
+            border-radius: 50%;
+          }
+          
+          /* SLIDER CSS BOTÕES */
+        .slider .indicators .indicator-item {
+            background-color: #323A45;;
+            border: 3px solid #ffffff;
+            -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 #323A45;
+            -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 #323A45;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 #323A45;
+        }
+        .slider .indicators .indicator-item.active {
+            background-color: #2ecc71;
+        }
+        .slider .indicators {
+            bottom: 60px;
+            z-index: 100;
+          /* text-align: left; */
+        }
+          
     </style>
 
 </head>
@@ -71,11 +113,27 @@
     </div>
     @endif
 
-<!-- Side Nav -->
-     @include('nav.sidenav')
+        <!-- Side Nav -->
+        @include('nav.sidenav')
+     
+        <!-- SLIDER  -->
+        <div class="slider">
+            <ul class="slides">
+                <li>
+                    <img src="{{ URL::asset('Imagens/1.png')}}"> <!-- random image -->
+                </li>
+                <li>
+                    <img src="{{ URL::asset('Imagens/2.png')}}"> <!-- random image -->
+                </li>
+                <li>
+                    <img src="{{ URL::asset('Imagens/3.png')}}"> <!-- random image -->
+                </li>
+            </ul>
+        </div>
+     
 <!-- Exibe produtos do E-Commerce -->
-    <br><br><br>
-<div class="container">
+   
+    <div class="container">
         <div class="row">
             @foreach($produtos as $prod)
             <div class="col s4 m4 l4">
@@ -143,7 +201,13 @@
             $('.chevron').html(val)
         });
     });
-</script>
+    </script>
+    
+    <script>
+        $(document).ready(function(){
+          $('.slider').slider();
+        });
+    </script>
 
 </body>
 

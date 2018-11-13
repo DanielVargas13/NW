@@ -65,7 +65,7 @@
         }
 
         .circular-chart.orange .circle {
-            stroke: #2ecc71;;
+            stroke: #2ecc71;
         }
 
 
@@ -77,7 +77,7 @@
         }   
 
         .orange{
-            background-color: white !important;
+            background-color: #f2f2f2 !important;
         }
         
         .avaliacao{
@@ -125,6 +125,59 @@
         .comentarioComent{
             font-size: 20px;
         }
+        
+        /* Fonte */
+        .ralewayFont {
+            font-family: 'Raleway';
+        }
+
+        /* Tamanho do Modal */
+        .modal {
+            width: 40% !important;
+            max-height: 100%;
+        }
+
+        /*MouseOver para alterar cor dos botões*/
+        .modal-trigger:hover {
+            background: #2ecc71;
+        }
+        .altera-cor:hover {
+            background: red;
+        }
+
+        body {
+            background-color: #f2f2f2;
+        }
+
+        /* Cor preta dos botões */
+        .corBtn{
+            background: #323A45;   
+        }
+        
+        /*  BADGE DO CARRINHO*/
+        .notification-badge {
+            position: relative;
+            right: 5px;
+            top: -20px;
+            color: #941e1e;
+            background-color: #f5f1f2;
+            margin: 0 -.8em;
+            border-radius: 50%;
+            padding: 5px 10px;
+        }
+        .notif{
+            position: absolute;
+            left: 0px;
+        }
+        .notification-badge {
+            position:relative;
+            padding:5px 9px;
+            background-color: #2ecc71;
+            color: white;
+            bottom: 15px;
+            left: 5px;
+            border-radius: 50%;
+          }
     </style>
     
     </head>
@@ -194,12 +247,12 @@
                         <br>
                     </div>
                     <div class="col s8 m8 l8">
-                        <div class="divider"></div>
+                        <div class="divider grey lighten-1"></div>
                                          <br>
                                                           <br>
                     </div>
    
-                    <div class="col s8 m8 l8 center grey lighten-4">      
+                    <div class="col s8 m8 l8 center grey lighten-2">      
                         <form>
                             <div class="row">
                                 <h3 class="fontes"> Comente sobre este vendedor </h3>
@@ -222,12 +275,12 @@
         
         <div class="row">
             <div class="col s10 m10 l10 offset-s1 offset-m1 offset-l1">
-                <div class="divider"></div>
+                <div class="divider grey lighten-1"></div>
             </div>
         </div>
         
         <div class="row">
-            <div class="col s6 m6 l6 grey lighten-3 offset-s3 offset-m3 offset-l3">
+            <div class="col s6 m6 l6 grey lighten-2 offset-s3 offset-m3 offset-l3">
                 <h2 class="fontes center"> <b>Informações do Vendedor</b> </h2> 
                 <br><br>
                 <div class="col s8 m8 l8 offset-s2 offset-m2 offset-l2">
@@ -251,7 +304,7 @@
                     </div>
                     <div class="row">
                         <div class="col s12 m12 l12">
-                            <div class="divider"></div>
+                            <div class="divider grey lighten-1"></div>
                         </div>
                     </div>
                     <div class="col s12 m12 l12">
@@ -284,7 +337,7 @@
         
         <div class="row">
             <div class="col s10 m10 l10 offset-s1 offset-m1 offset-l1">
-                <div class="divider"></div>
+                <div class="divider grey lighten-1"></div>
             </div>
         </div>
         
@@ -293,9 +346,9 @@
         <h2 class=" center fontes"> <b> Produtos deste Vendedor </b> </h2>
         <br>
         
-        <div class="container">
-            <div class="row">
-                @foreach($produtos as $prod)
+    <div class="container">
+        <div class="row">
+            @foreach($produtos as $prod)
             <div class="col s4 m4 l4">
                 <div class="card">
                     <div class="card-image">
@@ -310,6 +363,9 @@
                         @else
                             <span class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$prod->nome}} - {{$prod->tiponegocio}} </span>
                         @endif
+                        @foreach($prod->cliente as $cliente)
+                        <a href="{{route('paginaV',$cliente->idCliente)}}" class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$cliente->gamer->nome}}</a>
+                        @endforeach
                          <span class="card-title activator center">
                         <a href="{{route('produto.show',$prod->idProduto)}}"><button class="btn corBtn waves-effect waves-blue darken-3 center modal-trigger" type="button" onclick=""> Ver Produto <i class="material-icons right"> launch </i></button></a>
                         </span>
@@ -317,12 +373,12 @@
                 </div>
             </div>
             @endforeach
-            </div>
         </div>
+    </div>
         
         <div class="row">
             <div class="col s10 m10 l10 offset-s1 offset-m1 offset-l1">
-                <div class="divider"></div>
+                <div class="divider grey lighten-1"></div>
             </div>
         </div>
         
@@ -331,50 +387,56 @@
         <h2 class=" center fontes"> <b> Comentários Sobre Este Vendedor </b> </h2>
         <br>
         <div class="row">
-            <div class="col s6 m6 l6 grey lighten-3 offset-s3 offset-m3 offset-l3">
+            <div class="col s6 m6 l6 grey lighten-2 offset-s3 offset-m3 offset-l3">
                 <div class="col s8 m8 l8 offset-s2 offset-m2 offset-l2">
                     <div class="col s12 m12 l12">
                         <div class="row">
                             <br>
                             <div class="col s8 m8 l8">
-                                <img class="circle" src="Img_Prog/noctis.jpg" style="height: 100px; width: 110px;"> <span class="fontes comentarioNome"> &nbsp;&nbsp;&nbsp;<b> Noctis Lucius Caelum </b> </span>
+                                <img class="circle" src="{{ URL::asset('Imagens/noctis.jpg')}}" style="height: 100px; width: 110px;"> <span class="fontes comentarioNome"> &nbsp;&nbsp;&nbsp;<b> Noctis Lucius Caelum </b> </span>                        
                                 <br><br>
                             </div>
                             <div class="col s12 m12 l12">
+                                <div class="idA">
+                                </div>
                                 <span class="fontes comentarioComent">  Excelente vendedor de jogos, nunca tive problemas.</span>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col s12 m12 l12">
-                                <div class="divider"></div>
+                                <div class="divider grey lighten-1"></div>
                             </div>
                         </div>
 
                         <div class="row">
                             <br>
                             <div class="col s8 m8 l8">
-                                <img class="circle" src="Img_Prog/ciri.jpg" style="height: 100px; width: 110px;"> <span class="fontes comentarioNome"> &nbsp;&nbsp;&nbsp;<b> Ciri </b> </span>
+                                <img class="circle" src="{{ URL::asset('Imagens/ciri.jpg')}}" style="height: 100px; width: 110px;"> <span class="fontes comentarioNome"> &nbsp;&nbsp;&nbsp;<b> Ciri </b> </span>
                                 <br><br>
                             </div>
                             <div class="col s12 m12 l12">
+                                <div class="idB">
+                                </div>
                                 <span class="fontes comentarioComent">  Excelente vendedor, vende ótimos produtos, em ótimo estado, sempre compro e vou comprar com ele.</span>
                             </div>
                         </div>   
                         
                         <div class="row">
                             <div class="col s12 m12 l12">
-                                <div class="divider"></div>
+                                <div class="divider grey lighten-1"></div>
                             </div>
                         </div>
 
                         <div class="row">
                             <br>
                             <div class="col s8 m8 l8">
-                                <img class="circle" src="Img_Prog/kratos.jpg" style="height: 100px; width: 110px;"> <span class="fontes comentarioNome"> &nbsp;&nbsp;&nbsp;<b> Kratos </b> </span>
+                                <img class="circle" src="{{ URL::asset('Imagens/kratos.jpg')}}" style="height: 100px; width: 110px;"> <span class="fontes comentarioNome"> &nbsp;&nbsp;&nbsp;<b> Kratos </b> </span>
                                 <br><br>
                             </div>
                             <div class="col s12 m12 l12">
+                                <div class="idC">
+                                </div>
                                 <span class="fontes comentarioComent">  Péssimo vendedor, os produtos demoram chegar, sempre chegam estragados ou com defeitos, sempre tivep roblemas com ele.</span>
                             </div>
                         </div>  
@@ -395,6 +457,19 @@
             $(".ten").stars({emptyIcon: 'glyphicon glyphicon-star-empty',
                 filledIcon: 'glyphicon glyphicon-star',stars: 10, color:'#2ecc71'});
         </script>
+        <script>
+            $(".idA").stars({emptyIcon: 'glyphicon glyphicon-star-empty',
+                filledIcon: 'glyphicon glyphicon-star',stars: 10, color:'#2ecc71', value:9});
+        </script>
+        <script>
+            $(".idB").stars({emptyIcon: 'glyphicon glyphicon-star-empty',
+                filledIcon: 'glyphicon glyphicon-star',stars: 10, color:'#2ecc71', value:10});
+        </script>
+      <script>
+            $(".idC").stars({emptyIcon: 'glyphicon glyphicon-star-empty',
+                filledIcon: 'glyphicon glyphicon-star',stars: 10, color:'#2ecc71', value:2});
+        </script>
+        
         <script type="text/javascript">
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', 'UA-36251023-1']);

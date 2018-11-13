@@ -65,6 +65,31 @@
         .corBtn{
             background: #323A45;   
         }
+        
+        /*  BADGE DO CARRINHO*/
+        .notification-badge {
+            position: relative;
+            right: 5px;
+            top: -20px;
+            color: #941e1e;
+            background-color: #f5f1f2;
+            margin: 0 -.8em;
+            border-radius: 50%;
+            padding: 5px 10px;
+        }
+        .notif{
+            position: absolute;
+            left: 0px;
+        }
+        .notification-badge {
+            position:relative;
+            padding:5px 9px;
+            background-color: #2ecc71;
+            color: white;
+            bottom: 15px;
+            left: 5px;
+            border-radius: 50%;
+          }
 
     </style>
 
