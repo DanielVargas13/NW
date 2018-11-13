@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 09-Nov-2018 às 00:24
+-- Generation Time: 13-Nov-2018 às 00:47
 -- Versão do servidor: 10.1.35-MariaDB
 -- versão do PHP: 7.2.9
 
@@ -22,8 +22,6 @@ SET time_zone = "+00:00";
 -- Database: `new_world`
 --
 
-CREATE DATABASE new_world;
-USE new_world;
 -- --------------------------------------------------------
 
 --
@@ -41,8 +39,7 @@ CREATE TABLE `anuncio` (
 --
 
 INSERT INTO `anuncio` (`situacao`, `idCliente`, `idProduto`) VALUES
-('Ativo', 3, 4),
-('Ativo', 3, 6);
+('Ativo', 5, 9);
 
 -- --------------------------------------------------------
 
@@ -55,7 +52,7 @@ CREATE TABLE `avaliacao` (
   `pontos` int(10) UNSIGNED NOT NULL,
   `comentario` varchar(255) NOT NULL,
   `idCliente` int(10) UNSIGNED NOT NULL,
-    `idAvaliador` int(10) UNSIGNED NOT NULL,
+  `idAvaliador` int(10) UNSIGNED NOT NULL,
   `updated_at` datetime NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -87,8 +84,7 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`idCliente`, `nick`, `telefone`, `rua`, `numero`, `bairro`, `cidade`, `estado`, `cep`, `foto`, `idGamer`, `updated_at`, `created_at`) VALUES
-(3, 'DeRezen313', '(99) 99999-9999', 'Bairro São Sebastião', 195, 'São Sebastião', 'Matozinhos', 'mg', '35720-000', '1539111904.jpg', 7, '2018-10-09 19:05:04', '2018-10-09 19:05:04'),
-(4, 'DeRezen313', '(99) 99999-9999', 'Rua Bela Vista', 195, 'São Sebastião', 'Matozinhos', 'Minas Gerais', '35720000', '1540504181.jpg', 8, '2018-10-25 21:49:41', '2018-10-25 21:49:41');
+(5, 'fernandojean116', '(31) 98897-2779', 'Amália Rodrigues de Jesus', 845, 'Felipe Cláudio de Sales', 'Pedro Leopoldo', 'Minas Gerais', '33600-000', '1542051337.jpg', 9, '2018-11-12 19:35:37', '2018-11-12 19:35:37');
 
 -- --------------------------------------------------------
 
@@ -111,8 +107,7 @@ CREATE TABLE `gamer` (
 --
 
 INSERT INTO `gamer` (`idGamer`, `nome`, `email`, `senha`, `remember_token`, `created_at`, `updated_at`) VALUES
-(7, 'Daniel Vargas', 'megustagames33@gmail.com', '12345678', 'W2yqjRXsONJOfsJKOO07S2L41ZkuUQD4UtMHZAmxdO1uw79W5PMokpfGXHLT', '2018-10-09 22:02:59', '2018-10-09 22:02:59'),
-(8, 'Fernando Jean', 'megustagames331@gmail.com', '12345678', NULL, '2018-10-26 00:46:59', '2018-10-26 00:46:59');
+(9, 'Fernando Jean Silva Rocha', 'fernandojean@live.com', '914161fj', NULL, '2018-11-12 21:34:09', '2018-11-12 21:34:09');
 
 -- --------------------------------------------------------
 
@@ -158,8 +153,9 @@ CREATE TABLE `produto` (
 --
 
 INSERT INTO `produto` (`idProduto`, `nome`, `descricao`, `tiponegocio`, `preco`, `status`, `foto`, `categoria`, `idTipoProduto`, `updated_at`, `created_at`) VALUES
-(4, 'Dota', 'Moba desenvolvido pela Valve', 'Venda', 286, 'seminovo', '1539786661.jpg', '', 3, '2018-10-17 14:31:01', '2018-10-17 14:31:01'),
-(6, 'BetaNet', 'Black betty had a job, the damn thing gonne wild', 'Troca', 0, 'Seminovo', '1540341878.jpg', NULL, 3, '2018-10-24 00:44:38', '2018-10-24 00:44:38');
+(7, 'God of War', 'Novo God of War', 'Venda', 168, 'Novo', '1542051394.png', 'Console', 6, '2018-11-12 19:36:34', '2018-11-12 19:36:34'),
+(8, 'God of War', 'Novo God of War', 'Venda', 168, 'Novo', '1542051428.png', 'Jogo', 6, '2018-11-12 19:37:08', '2018-11-12 19:37:08'),
+(9, 'God of War', 'Novo God of War', 'Venda', 168, 'Novo', '1542053354.png', 'Jogo', 6, '2018-11-12 20:09:14', '2018-11-12 20:09:14');
 
 -- --------------------------------------------------------
 
@@ -200,7 +196,8 @@ ALTER TABLE `anuncio`
 --
 ALTER TABLE `avaliacao`
   ADD PRIMARY KEY (`idAvaliacao`),
-  ADD KEY `idCliente` (`idCliente`);
+  ADD KEY `idCliente` (`idCliente`),
+  ADD KEY `avaliacao_ibfk_1` (`idAvaliador`);
 
 --
 -- Indexes for table `cliente`
@@ -248,13 +245,13 @@ ALTER TABLE `avaliacao`
 -- AUTO_INCREMENT for table `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idCliente` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idCliente` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `gamer`
 --
 ALTER TABLE `gamer`
-  MODIFY `idGamer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idGamer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -266,7 +263,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `idProduto` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idProduto` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tipoproduto`
@@ -289,7 +286,7 @@ ALTER TABLE `anuncio`
 -- Limitadores para a tabela `avaliacao`
 --
 ALTER TABLE `avaliacao`
-ADD CONSTRAINT `avaliacao_ibfk_1` FOREIGN KEY (`idAvaliador`) REFERENCES `cliente` (`idCliente`),
+  ADD CONSTRAINT `avaliacao_ibfk_1` FOREIGN KEY (`idAvaliador`) REFERENCES `cliente` (`idCliente`),
   ADD CONSTRAINT `avaliacao_ibfk_2` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`);
 
 --
