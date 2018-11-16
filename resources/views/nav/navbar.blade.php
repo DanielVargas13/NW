@@ -73,7 +73,7 @@
                         </li>
 
                         <li class="right ralewayFont" style="margin-right: 5px;">
-                            <a href="{{route('carrinho')}}" data-activates="notificarion" class="waves-effect waves-light modal-trigger" style="width: 4em;">
+                            <a href="#modalCarrinho" class="waves-effect waves-light modal-trigger" style="width: 4em;">
                                 <span class="stl-cart">
                                     <i class="material-icons left notif stl-cart">shopping_cart</i><small class="notification-badge"> 2 </small>  
                                 </span>
@@ -196,6 +196,58 @@
     <li><a href="{{route('categoria',8)}}" class="white-text waves-effect waves-light modal-trigger">Outros</a></li>
 </ul>
 
+
+  <!-- Modal Structure -->
+  <div id="modalCarrinho" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4 class="center ralewayFont"> Meu Carrinho de Compras </h4>
+        <div class="container">
+            <table class="highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th class="ralewayFont titulo"> <b> Produto </b> </th>
+                        <th class="ralewayFont titulo"> <b> Preço </b> </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td> <img src="#" style="height:150px; width: 120px; float:left;"> 
+                            <br> <p class="ralewayFont nome"> <b> Jogo - Gof of War - PS4 </b> </p>
+                            <p class="ralewayFont nome"> <b> Quantidade: </b> 1 </p>
+                            <a href="#" class="ralewayFont red-text"> Remover </a>
+                        </td>
+                        <td class="ralewayFont vendedor"> <b>R$ 160,00 </b> </td>
+                  </tr>
+                </tbody>
+            </table>
+            
+            <br><br>
+            
+            <div class="col s6 m6 l6 z-depth-3">
+                <div class="card horizontal grey lighten-3">
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p class="valorCompra ralewayFont center"> <b>Valor Total da Compra: R$ 160,00 </b> </p>
+                        </div>
+                    </div> 
+              </div>
+            </div>
+        </div>      
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat green-text right"> Ver Carrinho </a>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat red-text right"> Cancelar Pedido </a>
+    </div>
+  </div>
+    
+    <!-- Script Modal Carrinho -->
+    <script>
+        $(document).ready(function(){
+            $('.modal').modal();
+        });
+    </script>
+    
 <script>
     $(document).ready(() => {
         $('.collapsible').collapsible();
