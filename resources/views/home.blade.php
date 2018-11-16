@@ -117,7 +117,7 @@
         @include('nav.sidenav')
      
         <!-- SLIDER  -->
-        <div class="slider">
+        <div class="slider s12">
             <ul class="slides">
                 <li>
                     <img src="{{ URL::asset('Imagens/1.png')}}"> <!-- random image -->
@@ -136,7 +136,7 @@
     <div class="container">
         <div class="row">
             @foreach($produtos as $prod)
-            <div class="col s4 m4 l4">
+            <div class="col s12 m4 l4">
                 <div class="card">
                     <div class="card-image">
                         <br>
@@ -208,6 +208,8 @@
           $('.slider').slider();
         });
     </script>
+
+   @include('nav.footer')
 
 </body>
 

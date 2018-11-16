@@ -188,6 +188,8 @@
     });
 </script>
 
+   @include('nav.footer')
+
 </body>
 
 </html>

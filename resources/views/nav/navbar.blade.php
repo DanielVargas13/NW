@@ -14,21 +14,24 @@
     }
 
     .navbar-fixed{
+        margin-top: -64px;
         position: fixed
     }
 
     .perfil-btn-mobile {
-    position: fixed absolute; /* Sit on top of the page content */
-
-    position: fixed;
-    bottom: 8px;
-    right: 16px;
-    font-size: 18px;
-    z-index: 999;
+        position: fixed;
+        bottom: 8px;
+        right: 16px;
+        font-size: 18px;
+        z-index: 999;
     }
 
     .categ-body{
         margin-left: 25px;
+    }
+
+    #mobile-menu{
+        max-height: 25em;
     }
 
 </style>
@@ -36,13 +39,13 @@
 <div class="hide-on-small-only">
 
     <!-- navbar superior -->
-    <nav class="navbar-fixed cinza" style="margin-top: -64px;">
+    <nav class="navbar-fixed cinza">
+        <div class="col m1" style="position: absolute">
+            <a href="{{ route('home') }}"><img src="{{URL::asset('Imagens/LogoPNG2.png')}}" style="height: 50px; width: 50px; margin-top:9px;"></a>
+        </div>
         <div class="container">
             <div class="nav-wrapper row">
-                <ul class="hide-on-med-and-down">
-                    <div class="col m1">
-                        <li><a href="{{ route('home') }}"><img src="{{URL::asset('Imagens/LogoPNG2.png')}}" style="height: 50px; width: 50px; margin-top:9px;"></a></li>
-                    </div>
+                <ul>
 
                     <div class="col m4">
                         <li class="ralewayFont"><a href="{{ route('home') }}" class="waves-effect waves-light modal-trigger">New World</a></li>
@@ -88,9 +91,7 @@
             <div class="nav-wrapper">
                 <ul class="left hide-on-small-only">
                     <li><a href="{{ route('home') }}" class="waves-effect waves-light modal-trigger">Home</a></li>
-                    <li>
-                        <a class="dropdown-trigger waves-effect waves-light modal-trigger"  data-target="drop-especialidade">Categorias<i class="material-icons right">arrow_drop_down</i></a>        
-                    </li>
+                    <li><a class="dropdown-trigger waves-effect waves-light modal-trigger"  data-target="drop-especialidade">Categorias<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a class="waves-effect waves-light modal-trigger">Catálogo de Jogos</a></li>
                     <li><a class="waves-effect waves-light modal-trigger">Eventos</a></li>
                     <li><a class="waves-effect waves-light modal-trigger">Notícias</a></li>
@@ -117,6 +118,7 @@
         </div>
 
         <ul id="mobile-menu" class="cinza dropdown-content hide-on-med-and-up">
+            <li><a class="waves-effect waves-light modal-trigger"><i class="material-icons">close</i></a></li>
             <li><a href="{{ route('home') }}" class="waves-effect waves-light modal-trigger">Home</a></li>
 
             <li><a class="white-text waves-effect waves-light modal-trigger">Categorias</a></li>
@@ -136,6 +138,52 @@
 
 
     </nav>
+
+    <!-- Mobile : Navbar inferior -->
+    <nav class="cinza">
+        
+    <div style="margin: 0px -10px">
+            <div class="nav-wrapper row">
+                <ul class="hide-on-med-and-up">
+                
+                    <div class="col s12">
+                        <li class="center" style="height: 64px; width: 100%">
+                            <form method="GET" action="{{route('search')}}">
+                                {{ csrf_field() }}
+                                <div class="input-field" style="background: #383F4A;">
+                                    <input id="search" name="pesquisa" type="search" placeholder="Procurar" autocomplete="off" required>
+                                    <label class="label-icon" for="search"><button type="submit" id="search_button" class="waves-effect waves-teal btn-flat" style="margin-left: -18px; height: 64px; width: 60px;"><i class="material-icons">search</i></button></label>
+                                    <i class="material-icons">close</i>
+                                </div>
+                            </form>
+                        </li>
+                    </div>
+                </ul>
+            </div>        
+        </div>
+    </nav>
+    
+    <nav class="cinza" style="margin-top: .5em">
+        <div class="container">
+            <ul class="hide-on-med-and-up">
+                <div class="col s12">
+                        <li class="right ralewayFont">
+                            <a href="{{route('logout')}}" class="waves-effect waves-light modal-trigger">
+                                <i class="material-icons right">exit_to_app</i>Sair
+                            </a>
+                        </li>
+
+                    <li class="left ralewayFont">
+                        <a href="{{route('carrinho')}}" data-activates="notificarion" class="waves-effect waves-light modal-trigger">
+                            <span class="stl-cart">
+                                <i class="material-icons notif stl-cart">shopping_cart</i><small class="notification-badge"> 2 </small>  
+                            </span>
+                        </a>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </nav>
 </div>
 
 <!-- DROPDOWN STRUCTURE -->
@@ -152,10 +200,5 @@
     $(document).ready(() => {
         $('.collapsible').collapsible();
 
-        // MOBILE ARROW     
-        $('#mob-categ').click(() => {
-            let val = ($('.chevron').html() == 'chevron_right') ? 'keyboard_arrow_down' : 'chevron_right';
-            $('.chevron').html(val)
-        })
     })
 </script>

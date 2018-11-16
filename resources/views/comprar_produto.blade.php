@@ -170,6 +170,8 @@
               $('select').formSelect();
             });
         </script>
+
+        @include('nav.footer')
         
     </body>
 </html>

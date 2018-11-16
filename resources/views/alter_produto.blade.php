@@ -347,18 +347,20 @@ $('#idcategoria').on('contentChanged', function() {
   
 });
 
-</script>
-    <script>
-    $(document).ready(()=>{
-        $('.sidenav').sidenav();
-        $(".dropdown-trigger").dropdown();
-        $('.collapsible').collapsible();
-        // MOBILE ARROW     
-        $('#mob-especialidades').click(()=>{
-            let val = ($('.chevron').html() == 'chevron_right') ? 'keyboard_arrow_down' : 'chevron_right';
-            $('.chevron').html(val)
+    </script>
+        <script>
+        $(document).ready(()=>{
+            $('.sidenav').sidenav();
+            $(".dropdown-trigger").dropdown();
+            $('.collapsible').collapsible();
+            // MOBILE ARROW     
+            $('#mob-especialidades').click(()=>{
+                let val = ($('.chevron').html() == 'chevron_right') ? 'keyboard_arrow_down' : 'chevron_right';
+                $('.chevron').html(val)
+            });
         });
-    });
-</script>
+    </script>
+
+   @include('nav.footer')
 </body>
 </html>

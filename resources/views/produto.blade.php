@@ -261,6 +261,8 @@
           $('.materialboxed').materialbox();
         });
     </script>
+    
+   @include('nav.footer')
 </body>
 
 </html>
