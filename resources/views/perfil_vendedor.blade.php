@@ -13,12 +13,11 @@
     <link rel="stylesheet" href="{{ URL::asset('css/materialize.min.css')}}">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <!-- BOOTSTRAP & JQUERY PLUGIN AVALIAÇÃO -->
-    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
     <style>
-    
+        h3 {
+            font-size: 24px;
+        }
         .fontes{
             font-family: 'Raleway';
         }
@@ -94,6 +93,24 @@
         /* ESTRELAS DE AVALIAÇÃO */
         .glyphicon-star-empty, .glyphicon-star { 
             font-size: 32px;
+        }
+        .glyphicon {
+            position: relative;
+            top: 1px;
+            display: inline-block;
+            font-family: 'Glyphicons Halflings';
+            font-style: normal;
+            font-weight: normal;
+            line-height: 1;
+  
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .glyphicon-star:before {
+            content: "\e006";
+        }
+        .glyphicon-star-empty:before {
+            content: "\e007";
         }
         
         /* Informações Vendedor CARD */
@@ -242,14 +259,14 @@
                     <br>
                     <div class="col s8 m8 l8 center">
                         <h3 class="fontes">  Como você classificaria este vendedor? </h3>
-                        <div class="ten">
+
+                        <div class="ten stars">
                         </div>
                         <br>
                     </div>
                     <div class="col s8 m8 l8">
                         <div class="divider grey lighten-1"></div>
-                                         <br>
-                                                          <br>
+                        <br><br>
                     </div>
    
                     <div class="col s8 m8 l8 center grey lighten-2">      
