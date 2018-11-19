@@ -30,7 +30,10 @@ class ProdutoController extends Controller
             $query->where('anuncio.idCliente',$id);
         })->get();
          $cliente = app('App\Http\Controllers\ClienteController')->show($id);
-        return view('perfil_vendedor')->with(['produtos' => $produtos,'cliente' => $cliente]);   
+         $media = app('App\Http\Controllers\AvaliacaoController')->media($id);
+         $media = $media*10;
+         $media = number_format($media,1,',','');
+        return view('perfil_vendedor')->with(['produtos' => $produtos,'cliente' => $cliente,'media' => $media]);   
     }
     
     public function ecommerce()
@@ -235,6 +238,12 @@ class ProdutoController extends Controller
         }
         $produtos = Produto::whereIn('idProduto',$idprods)->get();
         return view('comprar_produto')->with(['produtos' => $produtos,'qtd' => $qtdprods,'idps' => $idprods]);
+    }
+    
+    public function totalCar(){
+        $carrinho = Cart::session(Auth::user()->cliente->idCliente)->getContent();
+        $total = $carrinho->count();
+        return $total;
     }
     
     public function removerprod($id){

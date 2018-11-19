@@ -58,3 +58,5 @@ Route::resource('gamer','GamerController');
 Route::resource('produto','ProdutoController');
 
 Route::resource('cliente','ClienteController');
+
+Route::resource('avaliacao','AvaliacaoController');

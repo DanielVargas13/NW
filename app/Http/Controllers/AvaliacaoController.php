@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Avaliacao;
 use Illuminate\Http\Request;
+use Auth;
 
 class AvaliacaoController extends Controller
 {
@@ -35,7 +36,14 @@ class AvaliacaoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $avaliacao = new Avaliacao;
+        $avaliacao->pontos = $request->nota;
+        $avaliacao->comentario = $request->comentario;
+        $avaliacao->idCliente = $request->idVend;
+        $avaliacao->idAvaliador = Auth::user()->cliente->idCliente;
+        $avaliacao->save();
+        //$this->guardarInfo($cliente->idGamer);
+        return redirect()->route('paginaV',$request->idVend)->with('message', 'Vendedor avaliado');
     }
 
     /**
@@ -47,6 +55,11 @@ class AvaliacaoController extends Controller
     public function show($id)
     {
         //
+    }
+    
+    public function media($id){
+        $media = Avaliacao::where('idCliente',$id)->avg('pontos');
+        return $media;
     }
 
     /**

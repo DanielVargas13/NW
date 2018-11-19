@@ -75,7 +75,7 @@
                         <li class="right ralewayFont" style="margin-right: 5px;">
                             <a href="#modalCarrinho" class="waves-effect waves-light modal-trigger" style="width: 4em;">
                                 <span class="stl-cart">
-                                    <i class="material-icons left notif stl-cart">shopping_cart</i><small class="notification-badge"> 2 </small>  
+                                    <i class="material-icons left notif stl-cart">shopping_cart</i><small class="notification-badge"> {{ app('App\Http\Controllers\ProdutoController')->totalCar()}} </small>  
                                 </span>
                             </a>
                         </li>

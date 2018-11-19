@@ -241,7 +241,7 @@
                                         a 15.9155 15.9155 0 0 1 0 31.831
                                         a 15.9155 15.9155 0 0 1 0 -31.831"
                                     />
-                                    <text x="18" y="18.35" class="percentage fontes"> 90 </text>
+                                    <text x="18" y="18.35" class="percentage fontes"> {{$media}} </text>
                                     <text x="18" y="23.35" class="avaliacao fontes"> Ótimo </text>
                                 </svg>
                             </div>
@@ -249,7 +249,7 @@
                     </div>
                     <br><br>
                     <div class="col s8 m8 l8 center">
-                        <p class="fontes numAvaliacoes"> Baseado em <b>10</b> avaliações de compradores. </p>
+                        <p class="fontes numAvaliacoes"> Baseado em <b>{{$cliente->avaliado->count()}}</b> avaliações de compradores. </p>
                     </div>
                     <br>
                     <br>
@@ -270,9 +270,12 @@
                     </div>
    
                     <div class="col s8 m8 l8 center grey lighten-2">      
-                        <form>
+                        <form method="POST" action="{{route('avaliacao.store')}}" enctype='multipart/form-data'>
+                            {{ csrf_field() }}
                             <div class="row">
                                 <h3 class="fontes"> Comente sobre este vendedor </h3>
+                                <input id="idVend" name="idVend" value="{{$cliente->idCliente}}" type="text" hidden>
+                                <input id="nota" name="nota" type="text" hidden>
                                 <div class="input-field col s8 m8 l8 offset-s2 offset-m2 offset-l2">
                                     <i class="material-icons prefix">attach_file</i>
                                     <textarea id="icon_prefix2" class="materialize-textarea" maxlength="200"></textarea>
@@ -281,7 +284,7 @@
                             </div>
                             <div class="row">
                                 <div class="col s10 m10 l10">
-                                    <a class="waves-effect waves-light btn corbtn modal-trigger white-text right"> Postar </a>
+                                    <button class="btn waves-effect waves-light btn corbtn modal-trigger white-text right" type="submit"> Postar </button>
                                 </div>
                             </div>
                         </form>
@@ -407,56 +410,26 @@
             <div class="col s6 m6 l6 grey lighten-2 offset-s3 offset-m3 offset-l3">
                 <div class="col s8 m8 l8 offset-s2 offset-m2 offset-l2">
                     <div class="col s12 m12 l12">
+                        @foreach($cliente->avaliado as $avaliacao)
                         <div class="row">
                             <br>
                             <div class="col s8 m8 l8">
-                                <img class="circle" src="{{ URL::asset('Imagens/noctis.jpg')}}" style="height: 100px; width: 110px;"> <span class="fontes comentarioNome"> &nbsp;&nbsp;&nbsp;<b> Noctis Lucius Caelum </b> </span>                        
+                                <img class="circle" src="{{ URL::asset('Imagens/'.$avaliacao->avaliador->foto)}}" style="height: 100px; width: 110px;"> <span class="fontes comentarioNome"> &nbsp;&nbsp;&nbsp;<b> {{$avaliacao->avaliador->gamer->nome}} </b> </span>                        
                                 <br><br>
                             </div>
                             <div class="col s12 m12 l12">
-                                <div class="idA">
+                                <div>
+                                    {{$avaliacao->pontos}}
                                 </div>
-                                <span class="fontes comentarioComent">  Excelente vendedor de jogos, nunca tive problemas.</span>
+                                <span class="fontes comentarioComent"> {{$avaliacao->comentario}} </span>
                             </div>
                         </div>
-
-                        <div class="row">
+                         <div class="row">
                             <div class="col s12 m12 l12">
                                 <div class="divider grey lighten-1"></div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <br>
-                            <div class="col s8 m8 l8">
-                                <img class="circle" src="{{ URL::asset('Imagens/ciri.jpg')}}" style="height: 100px; width: 110px;"> <span class="fontes comentarioNome"> &nbsp;&nbsp;&nbsp;<b> Ciri </b> </span>
-                                <br><br>
-                            </div>
-                            <div class="col s12 m12 l12">
-                                <div class="idB">
-                                </div>
-                                <span class="fontes comentarioComent">  Excelente vendedor, vende ótimos produtos, em ótimo estado, sempre compro e vou comprar com ele.</span>
-                            </div>
-                        </div>   
-                        
-                        <div class="row">
-                            <div class="col s12 m12 l12">
-                                <div class="divider grey lighten-1"></div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <br>
-                            <div class="col s8 m8 l8">
-                                <img class="circle" src="{{ URL::asset('Imagens/kratos.jpg')}}" style="height: 100px; width: 110px;"> <span class="fontes comentarioNome"> &nbsp;&nbsp;&nbsp;<b> Kratos </b> </span>
-                                <br><br>
-                            </div>
-                            <div class="col s12 m12 l12">
-                                <div class="idC">
-                                </div>
-                                <span class="fontes comentarioComent">  Péssimo vendedor, os produtos demoram chegar, sempre chegam estragados ou com defeitos, sempre tivep roblemas com ele.</span>
-                            </div>
-                        </div>  
+                        @endforeach   
                     </div>
                 </div>
             </div>
