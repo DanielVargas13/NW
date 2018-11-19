@@ -459,7 +459,20 @@
             $(".idC").stars({emptyIcon: 'glyphicon glyphicon-star-empty',
                 filledIcon: 'glyphicon glyphicon-star',stars: 10, color:'#2ecc71', value:2});
         </script>
-        
+        <script>
+        $(document).ready(function() {
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal').modal();
+        });
+
+    </script>
+    <script>
+        $(document).ready(function() {
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('#modal1').modal('open');
+        });
+
+    </script>
         <script type="text/javascript">
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', 'UA-36251023-1']);

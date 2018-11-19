@@ -74,9 +74,13 @@
 
                         <li class="right ralewayFont" style="margin-right: 5px;">
                             <a href="#modalCarrinho" class="waves-effect waves-light modal-trigger" style="width: 4em;">
+                                @if (app('App\Http\Controllers\ProdutoController')->totalCar() == 0)
+                                    <i class="material-icons left">shopping_cart</i>
+                                @else
                                 <span class="stl-cart">
-                                    <i class="material-icons left notif stl-cart">shopping_cart</i><small class="notification-badge"> {{ app('App\Http\Controllers\ProdutoController')->totalCar()}} </small>  
+                                        <i class="material-icons left notif stl-cart">shopping_cart</i><small class="notification-badge"> {{ app('App\Http\Controllers\ProdutoController')->totalCar()}} </small> 
                                 </span>
+                                 @endif 
                             </a>
                         </li>
                     </div>
@@ -195,7 +199,11 @@
     <li><a href="{{route('categoria',7)}}" class="white-text waves-effect waves-light modal-trigger">X-BOX</a></li>
     <li><a href="{{route('categoria',8)}}" class="white-text waves-effect waves-light modal-trigger">Outros</a></li>
 </ul>
-
+@php
+    $itens = app('App\Http\Controllers\ProdutoController')->carrinhoModal();
+    $prd = $itens[0];
+    $quant = $itens[1];
+@endphp
 
   <!-- Modal Structure -->
   <div id="modalCarrinho" class="modal modal-fixed-footer">
@@ -211,14 +219,16 @@
                 </thead>
 
                 <tbody>
+                     @foreach($prd as $prod)
                     <tr>
-                        <td> <img src="#" style="height:150px; width: 120px; float:left;"> 
-                            <br> <p class="ralewayFont nome"> <b> Jogo - Gof of War - PS4 </b> </p>
-                            <p class="ralewayFont nome"> <b> Quantidade: </b> 1 </p>
-                            <a href="#" class="ralewayFont red-text"> Remover </a>
+                        <td> <img src="{{ URL::asset('Imagens/'.$prod->foto)}}" style="height:150px; width: 120px; float:left;"> 
+                            <br> <p class="ralewayFont nome"> <b> {{$prod->categoria}} - {{$prod->nome}} - {{$prod->tipo->nome}} </b> </p>
+                            <p class="ralewayFont nome"> <b> Quantidade: </b> {{$quant[$prod->idProduto]}} </p>
+                            <a href="{{route('removerMod',$prod->idProduto)}}" class="ralewayFont red-text"> Remover </a>
                         </td>
-                        <td class="ralewayFont vendedor"> <b>R$ 160,00 </b> </td>
+                        <td class="ralewayFont vendedor"> <b>R$ {{Cart::session(Auth::user()->cliente->idCliente)->get($prod->idProduto)->getPriceSum()}} </b> </td>
                   </tr>
+                    @endforeach
                 </tbody>
             </table>
             
@@ -228,7 +238,7 @@
                 <div class="card horizontal grey lighten-3">
                     <div class="card-stacked">
                         <div class="card-content">
-                            <p class="valorCompra ralewayFont center"> <b>Valor Total da Compra: R$ 160,00 </b> </p>
+                            <p class="valorCompra ralewayFont center"> <b>Valor Total da Compra: R$ {{Cart::session(Auth::user()->cliente->idCliente)->getTotal()}} </b> </p>
                         </div>
                     </div> 
               </div>
@@ -236,8 +246,8 @@
         </div>      
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat green-text right"> Ver Carrinho </a>
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat red-text right"> Cancelar Pedido </a>
+        <a href="{{route('carrinho')}}" class="modal-close waves-effect waves-green btn-flat green-text right"> Ver Carrinho </a>
+        <a href="{{route('limparMod')}}" class="modal-close waves-effect waves-green btn-flat red-text right"> Cancelar Pedido </a>
     </div>
   </div>
     

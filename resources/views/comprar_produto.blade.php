@@ -108,7 +108,7 @@
                 <tbody>
                     @foreach($produtos as $prod)
                     <tr>
-                        <td> <img src="{{ URL::asset('Imagens/'.$prod->foto)}}" style="height:150px; width: 120px; float:left;"> <br> <p class="ralewayFont nome"> <b>{{$prod->categoria}} {{$prod->nome}} - {{$prod->tipo->nome}} </b> </p><p class="ralewayFont vendedor">
+                        <td> <img src="{{ URL::asset('Imagens/'.$prod->foto)}}" style="height:150px; width: 120px; float:left;"> <br> <p class="ralewayFont nome"> <b>{{$prod->categoria}} - {{$prod->nome}} - {{$prod->tipo->nome}} </b> </p><p class="ralewayFont vendedor">
                         @foreach($prod->cliente as $cliente)
                             <b> Vendido por: </b>{{$cliente->gamer->nome}} 
                         @endforeach
@@ -164,7 +164,20 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <!--Materialize JS-->
         <script src="{{ URL::asset('js/materialize.min.js')}}"></script>        
+<script>
+        $(document).ready(function() {
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal').modal();
+        });
 
+    </script>
+    <script>
+        $(document).ready(function() {
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('#modal1').modal('open');
+        });
+
+    </script>
         <script>
             $(document).ready(function(){
               $('select').formSelect();

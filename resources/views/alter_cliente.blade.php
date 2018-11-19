@@ -347,7 +347,20 @@
             $('.materialboxed').materialbox();
         });
       </script>
-      
+      <script>
+        $(document).ready(function() {
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal').modal();
+        });
+
+    </script>
+    <script>
+        $(document).ready(function() {
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('#modal1').modal('open');
+        });
+
+    </script>
         <!-- Script Select Estados -->
         <script>
             $(document).ready(function(){

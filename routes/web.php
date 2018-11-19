@@ -47,7 +47,11 @@ Route::get('/carrinho','ProdutoController@carrinho')->name('carrinho');
 
 Route::get('/limparCar','ProdutoController@limparCar')->name('limparCar');
 
+Route::get('/limparMod','ProdutoController@limparModal')->name('limparMod');
+
 Route::get('/removerP/{idP}','ProdutoController@removerprod')->name('removerP');
+
+Route::get('/removerMod/{idP}','ProdutoController@removerModal')->name('removerMod');
 
 Route::get('/comprarP/{array}','ProdutoController@comprarProdutos')->name('comprarP');
 

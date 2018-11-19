@@ -240,6 +240,21 @@ class ProdutoController extends Controller
         return view('comprar_produto')->with(['produtos' => $produtos,'qtd' => $qtdprods,'idps' => $idprods]);
     }
     
+    public function carrinhoModal(){
+        $carrinho = Cart::session(Auth::user()->cliente->idCliente)->getContent();
+        $idprods = array();
+        $qtdprods = array();
+        $itens = array();
+        foreach($carrinho as $prod){
+            array_push($idprods,$prod->id);
+            $qtdprods[$prod->id] = $prod->quantity;
+        }
+        $produtos = Produto::whereIn('idProduto',$idprods)->get();
+        $itens[0] = $produtos;
+        $itens[1] = $qtdprods;
+        return $itens;
+    }
+    
     public function totalCar(){
         $carrinho = Cart::session(Auth::user()->cliente->idCliente)->getContent();
         $total = $carrinho->count();
@@ -251,9 +266,19 @@ class ProdutoController extends Controller
         return redirect()->route('carrinho');
     }
     
+    public function removerModal($id){
+        Cart::session(Auth::user()->cliente->idCliente)->remove($id);
+        return back();
+    }
+    
     public function limparCar(){
         Cart::session(Auth::user()->cliente->idCliente)->clear();
         return redirect()->route('carrinho');
+}
+    
+    public function limparModal(){
+        Cart::session(Auth::user()->cliente->idCliente)->clear();
+        return back();
 }
 
     public function comprarProdutos($idprods){
