@@ -103,10 +103,10 @@ class ProdutoController extends Controller
     public function search(Request $request)
     {
         $input = $request->pesquisa;
-        $produtos = Produto::whereHas('tipo',function($query) use($input){
+         $produtos = Produto::whereHas('tipo',function($query) use($input){
             $query->where('produto.nome','LIKE','%'.$input.'%')->orWhere('produto.categoria','LIKE','%'.$input.'%')->orWhere('tipoproduto.nome','LIKE','%'.$input.'%');
         })->get();
-        return view('home')->with(['produtos' => $produtos]);
+        return view('pesquisa_produtos_filtros')->with(['produtos' => $produtos, 'pesquisa' => $input]);
     }
 
     public function searchCat($cat)
@@ -115,6 +115,78 @@ class ProdutoController extends Controller
         $produtos = Produto::where('idTipoProduto',$tipo->idTipo)->get();
         session(['idcategoria' => $cat]);
         return view('resultado')->with(['produtos' => $produtos]);
+    }
+    
+    public function filtragemPadrao(Request $request)
+ 
+    {
+        $input = $request->pesquisa;
+        $tipos = $request->tipos;
+        $status = $request->status;
+        $preco = $request->preco;
+
+        $produtos = null;
+        
+        if($request->has('tipos') && $request->has('status')){
+            if($preco==1){
+                $produtos = Produto::whereHas('tipo',function($query) use($input){
+            $query->where('produto.nome','LIKE','%'.$input.'%')->orWhere('produto.categoria','LIKE','%'.$input.'%')->orWhere('tipoproduto.nome','LIKE','%'.$input.'%');
+        })->whereIn('tiponegocio', $tipos)->whereIn('status', $status)->orderBy('preco','desc')->get();
+            }else if($preco==0){
+                $produtos = Produto::whereHas('tipo',function($query) use($input){
+            $query->where('produto.nome','LIKE','%'.$input.'%')->orWhere('produto.categoria','LIKE','%'.$input.'%')->orWhere('tipoproduto.nome','LIKE','%'.$input.'%');
+        })->whereIn('tiponegocio', $tipos)->whereIn('status', $status)->orderBy('preco','asc')->get();
+            }else{
+                $produtos = Produto::whereHas('tipo',function($query) use($input){
+            $query->where('produto.nome','LIKE','%'.$input.'%')->orWhere('produto.categoria','LIKE','%'.$input.'%')->orWhere('tipoproduto.nome','LIKE','%'.$input.'%');
+        })->whereIn('tiponegocio', $tipos)->whereIn('status', $status)->get();
+            }
+        }else if($request->has('status')){
+            if($preco==1){
+                $produtos = Produto::whereHas('tipo',function($query) use($input){
+            $query->where('produto.nome','LIKE','%'.$input.'%')->orWhere('produto.categoria','LIKE','%'.$input.'%')->orWhere('tipoproduto.nome','LIKE','%'.$input.'%');
+        })->whereIn('status', $status)->orderBy('preco','desc')->get();
+            }else if($preco==0){
+                $produtos = Produto::whereHas('tipo',function($query) use($input){
+            $query->where('produto.nome','LIKE','%'.$input.'%')->orWhere('produto.categoria','LIKE','%'.$input.'%')->orWhere('tipoproduto.nome','LIKE','%'.$input.'%');
+        })->whereIn('status', $status)->orderBy('preco','asc')->get();
+            }else{
+                $produtos = Produto::whereHas('tipo',function($query) use($input){
+            $query->where('produto.nome','LIKE','%'.$input.'%')->orWhere('produto.categoria','LIKE','%'.$input.'%')->orWhere('tipoproduto.nome','LIKE','%'.$input.'%');
+        })->whereIn('status', $status)->get();
+            }
+        }else if($request->has('tipos')){
+            if($preco==1){
+                $produtos = Produto::whereHas('tipo',function($query) use($input){
+            $query->where('produto.nome','LIKE','%'.$input.'%')->orWhere('produto.categoria','LIKE','%'.$input.'%')->orWhere('tipoproduto.nome','LIKE','%'.$input.'%');
+        })->whereIn('tiponegocio', $tipos)->orderBy('preco','desc')->get();
+            }else if($preco==0){
+                $produtos = Produto::whereHas('tipo',function($query) use($input){
+            $query->where('produto.nome','LIKE','%'.$input.'%')->orWhere('produto.categoria','LIKE','%'.$input.'%')->orWhere('tipoproduto.nome','LIKE','%'.$input.'%');
+        })->whereIn('tiponegocio', $tipos)->orderBy('preco','asc')->get();
+            }else{
+                $produtos = Produto::whereHas('tipo',function($query) use($input){
+            $query->where('produto.nome','LIKE','%'.$input.'%')->orWhere('produto.categoria','LIKE','%'.$input.'%')->orWhere('tipoproduto.nome','LIKE','%'.$input.'%');
+        })->whereIn('tiponegocio', $tipos)->get();
+            }
+        }else{
+            if($preco==1){
+                $produtos = Produto::whereHas('tipo',function($query) use($input){
+            $query->where('produto.nome','LIKE','%'.$input.'%')->orWhere('produto.categoria','LIKE','%'.$input.'%')->orWhere('tipoproduto.nome','LIKE','%'.$input.'%');
+        })->orderBy('preco','desc')->get();
+            }else if($preco==0){
+                $produtos = Produto::whereHas('tipo',function($query) use($input){
+            $query->where('produto.nome','LIKE','%'.$input.'%')->orWhere('produto.categoria','LIKE','%'.$input.'%')->orWhere('tipoproduto.nome','LIKE','%'.$input.'%');
+        })->orderBy('preco','asc')->get();
+            }else{
+                $produtos = Produto::whereHas('tipo',function($query) use($input){
+            $query->where('produto.nome','LIKE','%'.$input.'%')->orWhere('produto.categoria','LIKE','%'.$input.'%')->orWhere('tipoproduto.nome','LIKE','%'.$input.'%');
+        })->get();
+            }
+        }
+    
+        return view('pesquisa_produtos_filtros')->with(['produtos' => $produtos, 'pesquisa' => $input]);
+
     }
     
     public function filtragem(Request $request)
@@ -219,13 +291,18 @@ class ProdutoController extends Controller
         $produto->categoria = $request->categoria;
         $produto->idTipoProduto = $request->idTipoProduto;
         $produto->save();
-        return back()->with('message', 'Atualização produto efetuado!');
+        return redirect()->route('produto.index')->with('message', 'Alteração no Produto realizada com sucesso');
     }
     
     public function addcarrinho($id){
-        $produto = Produto::where('idProduto',$id)->firstOrFail();
-        Cart::session(Auth::user()->cliente->idCliente)->add($produto->idProduto,$produto->nome,$produto->preco,1,array());
-        return back()->with('message', 'Produto adicionado');
+        $registro = Cart::session(Auth::user()->cliente->idCliente)->get($id);
+        if ($registro == null){
+            $produto = Produto::where('idProduto',$id)->firstOrFail();
+            Cart::session(Auth::user()->cliente->idCliente)->add($produto->idProduto,$produto->nome,$produto->preco,1,array());
+            return back()->with('message', 'Produto adicionado ao carrinho');
+        }else{
+            return back()->with('message', 'Você já adicionou este produto no carrinho de compras');
+        }
     }
     
     public function carrinho(){
@@ -238,6 +315,25 @@ class ProdutoController extends Controller
         }
         $produtos = Produto::whereIn('idProduto',$idprods)->get();
         return view('comprar_produto')->with(['produtos' => $produtos,'qtd' => $qtdprods,'idps' => $idprods]);
+    }
+    
+     public function carrinhoFinal($id){
+         $registro = Cart::session(Auth::user()->cliente->idCliente)->get($id);
+        if ($registro == null){
+            $produto = Produto::where('idProduto',$id)->firstOrFail();
+            Cart::session(Auth::user()->cliente->idCliente)->add($produto->idProduto,$produto->nome,$produto->preco,1,array());
+            $carrinho = Cart::session(Auth::user()->cliente->idCliente)->getContent();
+            $idprods = array();
+            $qtdprods = array();
+            foreach($carrinho as $prod){
+                array_push($idprods,$prod->id);
+                $qtdprods[$prod->id] = $prod->quantity;
+            }
+            $produtos = Produto::whereIn('idProduto',$idprods)->get();
+            return view('comprar_produto')->with(['produtos' => $produtos,'qtd' => $qtdprods,'idps' => $idprods]);
+        }else{
+            return redirect()->route('carrinho');
+        }
     }
     
     public function carrinhoModal(){

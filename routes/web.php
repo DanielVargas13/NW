@@ -29,6 +29,8 @@ Route::get('/atualizarCadastro/{idC}', 'ClienteController@edit')->name('aCadastr
 
 Route::get('/filtragem','ProdutoController@filtragem')->name('filtragem');
 
+Route::get('/filtragemPad','ProdutoController@filtragemPadrao')->name('filtragemPad');
+
 //Route::get('/atualizarGamer/{g}', 'GamerController@up');
 
 Route::get('/cadastroCompleto/{id}', 'ClienteController@create')->name('cCadastro');
@@ -42,6 +44,8 @@ Route::get('/categoria/{idCat}','ProdutoController@searchCat')->name('categoria'
 Route::get('/deletar/{idP}','ProdutoController@destroy')->name('deletar');
 
 Route::get('/adicionar/{idP}','ProdutoController@addcarrinho')->name('adicionar');
+
+Route::get('/carrinhoFinal/{idP}','ProdutoController@carrinhoFinal')->name('carrinhoFinal');
 
 Route::get('/carrinho','ProdutoController@carrinho')->name('carrinho');
 

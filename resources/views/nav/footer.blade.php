@@ -39,7 +39,7 @@ z-index: 999;
                 <div class="col s12 m2">
                     <h5 class="white-text">Navegue</h5>
                     <ul>
-                        <li><a href="{{ route('home') }}" class="white-text text-lighten-3">Home</a></li>
+                        <li><a href="{{route('home')}}" class="white-text text-lighten-3">Home</a></li>
                         <li><a href="" class="white-text text-lighten-3">Catálogo de Jogos</a></li>
                         <li><a href="" class="white-text text-lighten-3">Eventos</a></li>
                         <li><a href="" class="white-text text-lighten-3">Notícias</a></li>
@@ -49,19 +49,19 @@ z-index: 999;
                 <div class="col s12 m2 offset-m2">
                     <h5 class="white-text">Categorias</h5>
                     <ul>
-                        <li><a href="" class="white-text text-lighten-3">Colecionáveis</a></li>
-                        <li><a href="" class="white-text text-lighten-3">Nintendo</a></li>
-                        <li><a href="" class="white-text text-lighten-3">PC</a></li>
-                        <li><a href="" class="white-text text-lighten-3">PS4</a></li>
-                        <li><a href="" class="white-text text-lighten-3">X-BOX</a></li>
-                        <li><a href="" class="white-text text-lighten-3">Outros</a></li>
+                        <li><a href="{{route('categoria',3)}}" class="white-text text-lighten-3">Colecionáveis</a></li>
+                        <li><a href="{{route('categoria',4)}}" class="white-text text-lighten-3">Nintendo</a></li>
+                        <li><a href="{{route('categoria',5)}}" class="white-text text-lighten-3">PC</a></li>
+                        <li><a href="{{route('categoria',6)}}" class="white-text text-lighten-3">PS4</a></li>
+                        <li><a href="{{route('categoria',7)}}" class="white-text text-lighten-3">X-BOX</a></li>
+                        <li><a href="{{route('categoria',8)}}" class="white-text text-lighten-3">Outros</a></li>
                     </ul>
                 </div>
                 <div class="col s12 m2 offset-m2">
                     <h5 class="white-text">Meus Produtos</h5>
                     <ul>
-                        <li><a href="" class="white-text text-lighten-3">Cadastrar</a></li>
-                        <li><a href="" class="white-text text-lighten-3">Listar todos</a></li>
+                        <li><a href="{{route('cProduto', Auth::user()->idGamer)}}" class="white-text text-lighten-3">Cadastrar</a></li>
+                        <li><a href="{{route('mProduto', Auth::user()->idGamer)}}" class="white-text text-lighten-3">Listar todos</a></li>
                     </ul>
                 </div>
             </div>

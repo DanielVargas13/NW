@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Produto - Fênix </title>
+    <title> Home - Fênix </title>
     
     <!-- Logo na Aba do Navegador -->
     <link rel="shortcut icon" href="{{ URL::asset('Imagens/LogoPNG2.png')}}" >  
@@ -20,6 +20,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bitter|Playfair+Display" rel="stylesheet">
+    
     <!-- Se remover isso vai parar de funcionar -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -47,18 +48,10 @@
             background-color: #f2f2f2;
         }
         
-        .titulo{
-            font-family: 'Raleway' !important;
-            font-size: 40px !important;
-        }
-        .subtitulo{
-            font-family: 'Raleway' !important;
-            font-size: 22px !important;            
-        }
-        
-        .ofertas{
-            font-family: 'Raleway' !important;
-            font-size: 40px;
+        .textoSideNav{
+            color: black;
+            font-family: 'Raleway';
+            font-size: 18px !important;
         }
         
         /* Cor preta dos botões */
@@ -92,12 +85,12 @@
           }
 
     </style>
-
+    
 </head>
 
 <body>
 
-    @include('nav.navbar')
+   @include('nav.navbar')
 
     @if (session('message'))
     <div id="modal1" class="modal">
@@ -110,84 +103,69 @@
     </div>
     @endif
 
-    <!-- Side Nav -->
+<!-- Side Nav -->
      @include('nav.sidenav')
-	
-     <br><br><br>
-	<!--Conteudo do corpo da pÃ¡gina-->
-        
-	<!--Imagens a esquerda-->
-        <div class="container">
-            <div class="row">
-                <!-- LADO ESQUERDO -->
-                <div class="col s6 m6 l6">
-                    <div class="col s12 m12 l12">
-                        <img id="imagem-perfil1" class="materialboxed" src="{{ URL::asset('Imagens/'.$produto->foto)}}" style="width: 620px; height: 450px;">
-                        <br>
-                        <div class="row">
-                            <div class="col s4 m4 l4">
-                                <img id="imagem-perfil2" class="materialboxed" width="150" src="{{ URL::asset('Imagens/'.$produto->foto)}}" style="width: 260px; height: 170px;">
-                            </div>
-                            <div class="col s4 m4 l4">
-                                <img id="imagem-perfil2" class="materialboxed" width="150" src="{{ URL::asset('Imagens/'.$produto->foto)}}" style="width: 260px; height: 170px;">
-                            </div>
-                            <div class="col s4 m4 l4">
-                                <img id="imagem-perfil2" class="materialboxed" width="150" src="{{ URL::asset('Imagens/'.$produto->foto)}}" style="width: 260px; height: 170px;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- LADO DIREITO -->
-                <div class="col s5 m5 l5 offset-s1 offset-m1 offset-l1">
-                    <div class="row">
-                        <div class="col s12 m12 l12">
-                            <div class="card white z-depth-2">
-                                <div class="card-content black-text">
-                                    <span class="card-title titulo center"> <b>{{$produto->nome}} - {{$produto->tipo->nome}} </b></span><br>
-                                    <p class="subtitulo"><b>Status do Produto:</b> {{$produto->status}}</p>
-                                    @foreach($produto->cliente as $vendedor)
-                                    <p class="subtitulo"><b>Vendido por:</b> {{$vendedor->gamer->nome}}</p>
-                                    @endforeach
-                                    <p></p>
-                                    <p class="subtitulo"><b>Descrição: </b>{{$produto->descricao}}</p>
-                                    @if ($produto->tiponegocio == "Venda")
-                                    <p class="subtitulo"><b>Preço:</b> R$ {{$produto->preco}}</p>
-                                    @endif
-                                    <br>
-                                    <div class="divider"></div>
-                                    <br>
-                                    <span class="card-title activator center">
-                                        <a href="{{route('carrinhoFinal',$produto->idProduto)}}"><button class="btn blue waves-effect waves-blue darken-3 center" type="button" onclick=""> Comprar <i class="material-icons right"> add_shopping_cart </i></button></a>
-                                         <a href="{{route('adicionar',$produto->idProduto)}}"><button class="btn blue waves-effect waves-blue darken-3 center" type="button" onclick=""> Adicionar ao Carrinho <i class="material-icons right"> add_shopping_cart </i></button></a>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                   
-                </div>
-            </div>
-        </div>
+    
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+    <div class="container">
+        <form method="GET" action="{{route('filtragemPad')}}">
+            {{ csrf_field() }}
+            <h4 class="ralewayFont"> Tipos </h4>
+            <input id="pesquisa" name="pesquisa" value="{{$pesquisa}}" type="text" hidden>
+            <label>
+                <input name="tipos[]" value="Troca" type="checkbox" class="filled-in" />
+                <span class="center textoSideNav"> Troca </span>
+            </label><br>
+            <label>
+                <input name="tipos[]" value="Venda" type="checkbox" class="filled-in" />
+                <span class="center textoSideNav"> Venda </span>
+            </label><br>
 
-        <br><br>
-        
-	<!--Outras Ofertas a baixo-->	
-	<div class="divider"> </div>
-        
-        <br><br>
-        
-	<div class="row">
-            <div class="col s12 m12 l12 center ofertas">
-		Essas ofertas podem te interessar!
-            </div>
-	</div>
-        
-        <br>
-        
-	<div class="row">
-            <div class="col s8 m8 l8 offset-s2 offset-m2 offset-l2">
-                <!-- Exibe produtos do E-Commerce -->
-                @foreach($anuncios as $prod)
-                <div class="col s4 m4 l4">
+            <div class="divider"></div>
+
+            <h4 class="ralewayFont"> Status </h4>
+
+            <label>
+                <input name="status[]" value="Novo" type="checkbox" class="filled-in" />
+                <span class="center textoSideNav"> Novo </span>
+            </label><br>
+            <label>
+                <input name="status[]" value="Seminovo" type="checkbox" class="filled-in" />
+                <span class="center textoSideNav"> Seminovo </span>
+            </label><br>
+            <label>
+                <input name="status[]" value="Usado" type="checkbox" class="filled-in" />
+                <span class="center textoSideNav"> Usado </span>
+            </label>
+
+            <div class="divider"> </div>
+
+            <h4 class="ralewayFont"> Preço </h4>
+            <label>
+                <input value="0" class="with-gap" name="preco" type="radio" />
+                <span>Menor Preço</span>
+            </label><br>
+            <label>
+                <input value="1" class="with-gap" name="preco" type="radio" />
+                <span>Maior Preço</span>
+            </label>
+
+            <div class="divider"> </div>
+
+            <br><br>
+
+            <button id="filtrar" class="btn waves-effect waves-light ralewayFont modal-trigger corBtn" type="submit"><i class="material-icons right"> search </i> Fazer Busca </button>
+
+        </form>
+    </div>
+</ul>
+    
+    <br><br><br>
+<!-- Exibe produtos do E-Commerce -->
+    <div class="container">
+        <div class="row">
+            @foreach($produtos as $prod)
+            <div class="col s4 m4 l4">
                 <div class="card">
                     <div class="card-image">
                         <br>
@@ -209,12 +187,10 @@
                         </span>
                     </div>
                 </div>
-                </div>
-                @endforeach
             </div>
+            @endforeach
         </div>
-	
-	
+    </div>
     <div id='app-js' hashkey='A75312THG10$I21389#'>
         <!-- <p>Made with love by Brian and Daniel</p> -->
     </div>
@@ -248,7 +224,8 @@
         });
 
     </script>
-<script>
+    
+    <script>
     $(document).ready(()=>{
         $('.sidenav').sidenav();
         $(".dropdown-trigger").dropdown();
@@ -261,14 +238,8 @@
     });
 </script>
 
-    <!-- JQUERY MATERIALBOXED -->
-    <script>
-        $(document).ready(function(){
-          $('.materialboxed').materialbox();
-        });
-    </script>
-    
    @include('nav.footer')
+
 </body>
 
 </html>
