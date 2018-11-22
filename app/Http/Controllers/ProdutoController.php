@@ -32,7 +32,7 @@ class ProdutoController extends Controller
          $cliente = app('App\Http\Controllers\ClienteController')->show($id);
          $media = app('App\Http\Controllers\AvaliacaoController')->media($id);
          $media = $media*10;
-         $media = number_format($media,1,',','');
+         $media = number_format($media,1,'.','');
         return view('perfil_vendedor')->with(['produtos' => $produtos,'cliente' => $cliente,'media' => $media]);   
     }
     
@@ -380,6 +380,7 @@ class ProdutoController extends Controller
     public function comprarProdutos($idprods){
         $idps = explode(",",$idprods);
         foreach($idps as $id){
+            app('App\Http\Controllers\ClienteController')->aumentarVendido($id);
             $this->destroy($id);
         }
         Cart::session(Auth::user()->cliente->idCliente)->clear();

@@ -146,7 +146,7 @@
                                     <span class="card-title titulo center"> <b>{{$produto->nome}} - {{$produto->tipo->nome}} </b></span><br>
                                     <p class="subtitulo"><b>Status do Produto:</b> {{$produto->status}}</p>
                                     @foreach($produto->cliente as $vendedor)
-                                    <p class="subtitulo"><b>Vendido por:</b> {{$vendedor->gamer->nome}}</p>
+                                    <p class="subtitulo"><b>Vendido por:</b>  <a href="{{route('paginaV',$vendedor->idCliente)}}" class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$vendedor->gamer->nome}}</a></p>
                                     @endforeach
                                     <p></p>
                                     <p class="subtitulo"><b>Descrição: </b>{{$produto->descricao}}</p>

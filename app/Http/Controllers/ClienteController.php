@@ -137,6 +137,14 @@ class ClienteController extends Controller
         app('App\Http\Controllers\GamerController')->update($request,$cliente->idGamer);
         return redirect()->route('home')->with('message', 'Atualização de perfil efetuada!');
     }
+    
+    public function aumentarVendido($id){
+        $cliente = Cliente::whereHas('produto',function($query) use($id){
+            $query->where('anuncio.idProduto',$id);
+        })->firstOrFail();
+        $cliente->produtos_vendidos = $cliente->produtos_vendidos+1;
+        $cliente->save();
+    }
 
     /**
      * Remove the specified resource from storage.

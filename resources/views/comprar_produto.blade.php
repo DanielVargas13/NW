@@ -110,7 +110,7 @@
                     <tr>
                         <td> <img src="{{ URL::asset('Imagens/'.$prod->foto)}}" style="height:150px; width: 120px; float:left;"> <br> <p class="ralewayFont nome"> <b>{{$prod->categoria}} - {{$prod->nome}} - {{$prod->tipo->nome}} </b> </p><p class="ralewayFont vendedor">
                         @foreach($prod->cliente as $cliente)
-                            <b> Vendido por: </b>{{$cliente->gamer->nome}} 
+                            <b> Vendido por: </b> <a href="{{route('paginaV',$cliente->idCliente)}}" class="card-title activator center" style="font-size: 1.2rem; color: #0d47a1;"> {{$cliente->gamer->nome}}</a> 
                         @endforeach
                         </p></td>
                         <td>  

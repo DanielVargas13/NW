@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{ URL::asset('css/materialize.min.css')}}">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+        <link rel='stylesheet' href='http://localhost/NW/node_modules/glyphicons-only-bootstrap/css/bootstrap.min.css' />
 
     <style>
         h3 {
@@ -217,7 +219,7 @@
                     </div>
                     <div class="card-content">
                         <span class="card-title fontes nome"> {{$cliente->gamer->nome}} </span>
-                        <p class="fontes infoVendedor"> <b>Produtos Vendidos:</b> 20 </p>
+                        <p class="fontes infoVendedor"> <b>Produtos Vendidos:</b> {{$cliente->produtos_vendidos}} </p>
                     </div>
                   </div>
                 </div>
@@ -236,7 +238,7 @@
                                         a 15.9155 15.9155 0 0 1 0 -31.831"
                                     />
                                     <path class="circle"
-                                        stroke-dasharray="90, 100"
+                                        stroke-dasharray="{{$media.', 100'}}"
                                         d="M18 2.0845
                                         a 15.9155 15.9155 0 0 1 0 31.831
                                         a 15.9155 15.9155 0 0 1 0 -31.831"
@@ -278,7 +280,7 @@
                                 <input id="nota" name="nota" type="text" hidden>
                                 <div class="input-field col s8 m8 l8 offset-s2 offset-m2 offset-l2">
                                     <i class="material-icons prefix">attach_file</i>
-                                    <textarea id="icon_prefix2" class="materialize-textarea" maxlength="200"></textarea>
+                                    <textarea name="comentario" id="icon_prefix2" class="materialize-textarea" maxlength="200" required></textarea>
                                     <label for="icon_prefix2"> </label>
                                 </div>
                             </div>
@@ -410,7 +412,7 @@
             <div class="col s6 m6 l6 grey lighten-2 offset-s3 offset-m3 offset-l3">
                 <div class="col s8 m8 l8 offset-s2 offset-m2 offset-l2">
                     <div class="col s12 m12 l12">
-                        @foreach($cliente->avaliado as $avaliacao)
+                        @foreach($cliente->avaliado->slice(0,15) as $avaliacao)
                         <div class="row">
                             <br>
                             <div class="col s8 m8 l8">
@@ -418,8 +420,8 @@
                                 <br><br>
                             </div>
                             <div class="col s12 m12 l12">
-                                <div>
-                                    {{$avaliacao->pontos}}
+                                <div class="{{'id'.$avaliacao->idAvaliacao}}">
+                                    
                                 </div>
                                 <span class="fontes comentarioComent"> {{$avaliacao->comentario}} </span>
                             </div>
@@ -443,22 +445,19 @@
         <!-- SCRIPT AVALIAÇÃO ESTRELAS -->
         <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="{{ URL::asset('js/stars.js')}}"></script>
+        <script src="{{ URL::asset('js/starsfixa.js')}}"></script>
         <script>
             $(".ten").stars({emptyIcon: 'glyphicon glyphicon-star-empty',
-                filledIcon: 'glyphicon glyphicon-star',stars: 10, color:'#2ecc71'});
+                filledIcon: 'glyphicon glyphicon-star',stars: 10, color:'#2ecc71', click: function(i) {
+            $("#nota").val(i);
+        }});
         </script>
+         @foreach($cliente->avaliado as $avaliacao)
         <script>
-            $(".idA").stars({emptyIcon: 'glyphicon glyphicon-star-empty',
-                filledIcon: 'glyphicon glyphicon-star',stars: 10, color:'#2ecc71', value:9});
+            $("{{'.id'.$avaliacao->idAvaliacao}}").starsfixa({emptyIcon: 'glyphicon glyphicon-star-empty',
+                filledIcon: 'glyphicon glyphicon-star',stars: 10, color:'#2ecc71', value:{{$avaliacao->pontos}}});
         </script>
-        <script>
-            $(".idB").stars({emptyIcon: 'glyphicon glyphicon-star-empty',
-                filledIcon: 'glyphicon glyphicon-star',stars: 10, color:'#2ecc71', value:10});
-        </script>
-      <script>
-            $(".idC").stars({emptyIcon: 'glyphicon glyphicon-star-empty',
-                filledIcon: 'glyphicon glyphicon-star',stars: 10, color:'#2ecc71', value:2});
-        </script>
+        @endforeach
         <script>
         $(document).ready(function() {
             // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered

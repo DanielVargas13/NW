@@ -20,5 +20,7 @@
         "materialize-css": "1.0.0",
         "vue": "^2.5.7"
     },
-    "dependencies": {}
+    "dependencies": {
+        "glyphicons-only-bootstrap": "^1.0.1"
+    }
 }
